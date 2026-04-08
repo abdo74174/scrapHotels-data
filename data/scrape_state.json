@@ -1,0 +1,32 @@
+{
+  "booking": {
+    "siteName": "Booking.com",
+    "lastScrapedAt": "2026-04-08T18:21:31.137Z",
+    "lastReviewDate": "تاريخ التقييم: 5 فبراير 2026",
+    "totalReviews": 10
+  },
+  "agoda": {
+    "siteName": "Agoda.com",
+    "lastScrapedAt": "2026-04-08T17:21:54.800Z",
+    "lastReviewDate": "",
+    "totalReviews": 40
+  },
+  "expedia": {
+    "siteName": "Expedia.com",
+    "lastScrapedAt": "2026-04-08T17:27:33.495Z",
+    "lastReviewDate": "",
+    "totalReviews": 0
+  },
+  "hotels": {
+    "siteName": "Hotels.com",
+    "lastScrapedAt": "2026-04-08T17:27:50.727Z",
+    "lastReviewDate": "8 Nov 2025",
+    "totalReviews": 875
+  },
+  "tripadvisor": {
+    "siteName": "Tripadvisor.com",
+    "lastScrapedAt": "2026-04-08T17:29:47.043Z",
+    "lastReviewDate": "",
+    "totalReviews": 0
+  }
+}

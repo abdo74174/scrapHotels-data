@@ -1,0 +1,20 @@
+{
+    "name": "my-crawler",
+    "version": "0.0.1",
+    "type": "module",
+    "description": "This is an example of a Crawlee project.",
+    "dependencies": {
+        "crawlee": "^3.0.0",
+        "express": "^5.2.1",
+        "playwright": "*",
+        "socket.io": "^4.8.3",
+        "socket.io-client": "^4.8.3"
+    },
+    "scripts": {
+        "start": "node src/main.js",
+        "dev": "node server.js",
+        "test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1"
+    },
+    "author": "It's not you it's me",
+    "license": "ISC"
+}

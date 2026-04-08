@@ -1,0 +1,18 @@
+[32mINFO[39m [33m PlaywrightCrawler:[39m Starting the crawler.
+C:\Users\pc\my-crawler\node_modules\@crawlee\utils\internals\systemInfoV2\ps-tree.js:146
+            throw new Error(`Unknown process listing header: ${str}`);
+            ^
+
+Error: Unknown process listing header: W
+    at normalizeHeader (C:\Users\pc\my-crawler\node_modules\@crawlee\utils\internals\systemInfoV2\ps-tree.js:146:19)
+    at Array.map (<anonymous>)
+    at Interface.<anonymous> (C:\Users\pc\my-crawler\node_modules\@crawlee\utils\internals\systemInfoV2\ps-tree.js:55:34)
+    at Interface.emit (node:events:518:28)
+    at [_onLine] [as _onLine] (node:internal/readline/interface:423:12)
+    at [_normalWrite] [as _normalWrite] (node:internal/readline/interface:617:22)
+    at Socket.ondata (node:internal/readline/interface:250:23)
+    at Socket.emit (node:events:518:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+
+Node.js v22.17.1
