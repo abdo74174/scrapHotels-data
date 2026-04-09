@@ -13,6 +13,13 @@
     "scripts": {
         "start": "node src/main.js",
         "dev": "node server.js",
+        "scrape:booking": "node scrapers/booking.js",
+        "scrape:agoda": "node scrapers/agoda.js",
+        "scrape:expedia": "node scrapers/expedia.js",
+        "scrape:hotels": "node scrapers/hotels.js",
+        "scrape:tripadvisor": "node scrapers/tripadvisor.js",
+        "scrape:all": "node run-all.js",
+        "merge": "node merge.js",
         "test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1"
     },
     "author": "It's not you it's me",
