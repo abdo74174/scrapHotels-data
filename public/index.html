@@ -449,10 +449,15 @@
                 <div class="logo-icon">🏨</div>
                 <div>
                     <h1>Hotel Review Scraper</h1>
-                    <div class="header-subtitle">Four Seasons Hotel Cairo at Nile Plaza</div>
+                    <div class="header-subtitle" id="currentHotelName">Select a hotel to begin...</div>
                 </div>
             </div>
             <div class="header-right">
+                <div class="hotel-selector-wrapper" style="margin-right: 1.5rem;">
+                    <select id="hotelPresetSelector" style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); padding: 0.6rem 1.2rem; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; outline: none; transition: var(--transition);">
+                        <option value="">-- Choose Hotel --</option>
+                    </select>
+                </div>
                 <div class="badge-total">
                     📋 Total Reviews: <span class="count" id="totalCount">0</span>
                 </div>
@@ -462,7 +467,7 @@
         <!-- ═══ LAST SCRAPED BAR ═══ -->
         <div class="last-scraped-bar" id="lastScrapedBar">
             <span class="icon">📅</span>
-            <div class="info" id="lastScrapedInfo">Loading scrape history...</div>
+            <div class="info" id="lastScrapedInfo">Choose a hotel from the list above to see its scrape history.</div>
         </div>
 
         <!-- ═══ CONTROLS ═══ -->
@@ -653,6 +658,7 @@
         let reviewCount = 0;
         let activeFilter = 'all';
         let isRunning = false;
+        let currentHotel = '';
 
         const siteColors = {
             booking: '#003580',
@@ -672,6 +678,71 @@
 
         const $ = (sel) => document.querySelector(sel);
         const $$ = (sel) => document.querySelectorAll(sel);
+
+        // ═══════════════════════════════════════════════════════════
+        //  HOTEL SELECTOR LOGIC
+        // ═══════════════════════════════════════════════════════════
+        const hotelSelector = $('#hotelPresetSelector');
+        
+        // Load hotel list from API
+        fetch('/api/hotels')
+            .then(res => res.json())
+            .then(hotels => {
+                hotels.forEach(hotel => {
+                    const opt = document.createElement('option');
+                    opt.value = hotel;
+                    opt.textContent = hotel;
+                    hotelSelector.appendChild(opt);
+                });
+            });
+
+        hotelSelector.addEventListener('change', (e) => {
+            const hotelName = e.target.value;
+            if (!hotelName) {
+                resetUI();
+                return;
+            }
+            updateHotelContext(hotelName);
+        });
+
+        function updateHotelContext(hotelName) {
+            currentHotel = hotelName;
+            $('#currentHotelName').textContent = hotelName;
+            $('#reviewsList').innerHTML = '';
+            
+            // Show loading in site cards
+            $$('.site-card-badge').forEach(b => {
+                b.className = 'site-card-badge idle';
+                b.textContent = 'LOADING...';
+            });
+
+            // Request state for this hotel from socket
+            socket.emit('get_state', { hotelName });
+            
+            // Also fetch history sidebar info
+            fetch(`/api/state?hotel=${encodeURIComponent(hotelName)}`)
+                .then(r => r.json())
+                .then(state => updateStateUI(state));
+        }
+
+        function resetUI() {
+            currentHotel = '';
+            $('#currentHotelName').textContent = 'Select a hotel to begin...';
+            $('#totalCount').textContent = '0';
+            $$('.stat-value').forEach(v => v.textContent = '0');
+            $$('.site-card-status').forEach(v => v.textContent = 'Ready to scrape');
+            $$('.site-card-badge').forEach(b => {
+                b.className = 'site-card-badge idle';
+                b.textContent = 'IDLE';
+            });
+            $('#lastScrapedInfo').textContent = 'Choose a hotel from the list above to see its scrape history.';
+            $('#reviewsList').innerHTML = `
+                <div class="empty-state">
+                    <div class="icon">🏨</div>
+                    <p>Select a hotel to view its reviews and scraping status.</p>
+                </div>
+            `;
+        }
 
         // ═══════════════════════════════════════════════════════════
         //  SITE SELECTOR CHIPS
@@ -707,27 +778,14 @@
         }
 
         // ═══════════════════════════════════════════════════════════
-        //  SITE SELECTION
-        // ═══════════════════════════════════════════════════════════
-        $('#selectAll').addEventListener('click', () => {
-            $$('.site-chip').forEach(chip => {
-                chip.classList.add('selected');
-                chip.querySelector('input').checked = true;
-            });
-        });
-
-        $('#deselectAll').addEventListener('click', () => {
-            $$('.site-chip').forEach(chip => {
-                chip.classList.remove('selected');
-                chip.querySelector('input').checked = false;
-            });
-        });
-
-        // ═══════════════════════════════════════════════════════════
         //  START BUTTON
         // ═══════════════════════════════════════════════════════════
         function startScrape(mode) {
             if (isRunning) return;
+            if (!currentHotel) {
+                alert('Please select a hotel first!');
+                return;
+            }
 
             const selectedSites = [];
             $$('.site-chip input:checked').forEach(cb => selectedSites.push(cb.value));
@@ -745,6 +803,7 @@
             const activeBtn = mode === 'all' ? $('#btnScrapeAll') : mode === 'new' ? $('#btnScrapeNew') : $('#btnScrapeCustom');
             activeBtn.classList.add('running');
             $$('.btn-start').forEach(b => b.disabled = true);
+            hotelSelector.disabled = true;
 
             // Reset all site cards
             selectedSites.forEach(site => {
@@ -753,6 +812,7 @@
             });
 
             socket.emit('start_scrape', {
+                hotelName: currentHotel,
                 sites: selectedSites,
                 mode: mode,
                 dateFrom: mode === 'custom' ? $('#dateFrom').value : null,
@@ -768,13 +828,12 @@
         //  SOCKET LISTENERS
         // ═══════════════════════════════════════════════════════════
 
-        // Scrape state (loaded on connect + after each site completes)
         socket.on('scrape_state', (state) => {
             updateStateUI(state);
         });
 
-        // Per-site status messages
         socket.on('site_status', ({ site, msg }) => {
+            if (!site) return alert(msg); // Global error
             const statusEl = $(`#status-${site}`);
             if (statusEl) {
                 const isRunningMsg = msg.toLowerCase().includes('scraping') || msg.toLowerCase().includes('searching') || msg.toLowerCase().includes('navigating') || msg.toLowerCase().includes('starting');
@@ -784,7 +843,6 @@
             }
         });
 
-        // Per-site progress
         socket.on('site_progress', ({ site, status, count, newCount, error }) => {
             if (status === 'running') {
                 updateBadge(site, 'running', 'RUNNING');
@@ -796,12 +854,10 @@
             }
         });
 
-        // New review comes in
         socket.on('new_review', ({ site, review }) => {
             reviewCount++;
             $('#totalCount').textContent = reviewCount;
 
-            // Update site count
             const countEl = $(`#count-${site}`);
             if (countEl) countEl.textContent = parseInt(countEl.textContent || 0) + 1;
 
@@ -835,20 +891,19 @@
             `;
 
             const list = $('#reviewsList');
-            // Remove empty state
             const emptyState = list.querySelector('.empty-state');
             if (emptyState) emptyState.remove();
 
             list.insertBefore(card, list.firstChild);
         });
 
-        // All sites done
         socket.on('all_done', (state) => {
             isRunning = false;
             $$('.btn-start').forEach(b => {
                 b.classList.remove('running');
                 b.disabled = false;
             });
+            hotelSelector.disabled = false;
             updateStateUI(state);
         });
 
@@ -889,7 +944,7 @@
 
             if (lastScrapedParts.length > 0) {
                 $('#lastScrapedInfo').innerHTML = lastScrapedParts.join('<br>');
-            } else {
+            } else if (currentHotel) {
                 $('#lastScrapedInfo').innerHTML = 'No scraping history yet. Start your first scrape!';
             }
         }
@@ -901,13 +956,20 @@
             return div.innerHTML;
         }
 
-        // ═══════════════════════════════════════════════════════════
-        //  LOAD INITIAL STATE
-        // ═══════════════════════════════════════════════════════════
-        fetch('/api/state')
-            .then(r => r.json())
-            .then(state => updateStateUI(state))
-            .catch(() => {});
+        // Selection actions
+        $('#selectAll').addEventListener('click', () => {
+            $$('.site-chip').forEach(chip => {
+                chip.classList.add('selected');
+                chip.querySelector('input').checked = true;
+            });
+        });
+
+        $('#deselectAll').addEventListener('click', () => {
+            $$('.site-chip').forEach(chip => {
+                chip.classList.remove('selected');
+                chip.querySelector('input').checked = false;
+            });
+        });
     </script>
 </body>
 </html>

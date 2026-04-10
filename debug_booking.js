@@ -20,10 +20,14 @@ async function debugBooking() {
         return {
             html: firstCard.outerHTML,
             selectors: {
-                positiveText: !!firstCard.querySelector('.c-review__body--positive'),
-                negativeText: !!firstCard.querySelector('.c-review__body--negative'),
-                roomInfo: !!firstCard.querySelector('.c-review-block__room-info')
+                cardFound: !!firstCard,
+                positiveText: !!(firstCard.querySelector('[data-testid="review-positive-text"]') || firstCard.querySelector('.c-review__inner--positive')),
+                negativeText: !!(firstCard.querySelector('[data-testid="review-negative-text"]') || firstCard.querySelector('.c-review__inner--negative')),
+                roomName: !!firstCard.querySelector('[data-testid="review-room-name"]'),
+                roomInfo: !!firstCard.querySelector('.c-review-block__room-info'),
+                travelerType: !!firstCard.querySelector('[data-testid="review-traveler-type"]')
             }
+
         };
     });
 

@@ -1,7 +1,16 @@
 {
-    "booking": "https://www.booking.com/hotel/eg/four-seasons-cairo-at-nile-plaza.ar.html?aid=1610707&label=four-seasons-5QMYOvA_pYS87LFsDY7VsgS379678176194%3Apl%3Ata%3Ap1%3Ap2%3Aac%3Aap%3Aneg%3Afi%3Atikwd-370653961367%3Alp9112387%3Ali%3Adec%3Adm%3Appccp%3DUmFuZG9tSVYkc2RlIyh9YRlijhKLEMjJN0wau52YD5E&sid=f914397d5b7a2541e55eb782107afb33&all_sr_blocks=29997016_401734982_2_2_0&checkin=2026-04-25&checkout=2026-04-26&dest_id=299970&dest_type=hotel&dist=0&group_adults=2&group_children=0&hapos=1&highlighted_blocks=29997016_401734982_2_2_0&hpos=1&matching_block_id=29997016_401734982_2_2_0&no_rooms=1&req_adults=2&req_children=0&room1=A%2CA&sb_price_type=total&sr_order=popularity&sr_pri_blocks=29997016_401734982_2_2_0__47500&srepoch=1775667380&srpvid=e350771760930078&type=total&ucfs=1&",
-    "agoda": "https://www.agoda.com/four-seasons-hotel-cairo-at-nile-plaza/hotel/cairo-eg.html?cid=1844104",
-    "expedia": "https://www.expedia.com/Cairo-Hotels-Four-Seasons-Hotel-Cairo-At-Nile-Plaza.h1083214.Hotel-Information?chkin=2026-04-22&chkout=2026-04-23&x_pwa=1&rfrr=HSR&pwa_ts=1775667550055&referrerUrl=aHR0cHM6Ly93d3cuZXhwZWRpYS5jb20vSG90ZWwtU2VhcmNo&useRewards=false&rm1=a2&regionId=767&destination=Cairo%2C%20Cairo%20Governorate%2C%20Egypt&destType=MARKET&neighborhoodId=3000665106&selected=1083214&latLong=30.04442%2C31.235712&sort=RECOMMENDED&top_dp=393&top_cur=USD&userIntent=&selectedRoomType=200306328&selectedRatePlan=407666408&categorySearch=any_option&searchId=7f1d5923-c9f9-4a4d-af10-daa959b3ea96&pwaDialog=sui-see-all-reviews-dialog",
-    "hotels": "https://www.hotels.com/ho234548/four-seasons-hotel-cairo-at-nile-plaza-cairo-egypt/?locale=en_GB&siteid=310000033",
-    "tripadvisor": "https://www.tripadvisor.com/Hotel_Review-g294201-d308077-Reviews-Four_Seasons_Hotel_Cairo_at_Nile_Plaza-Cairo_Cairo_Governorate.html#REVIEWS"
+  "Four Seasons Cairo": {
+    "booking": "https://www.booking.com/hotel/eg/four-seasons-cairo-at-nile-plaza.en-gb.html",
+    "agoda": "https://www.agoda.com/four-seasons-hotel-cairo-at-nile-plaza/hotel/cairo-eg.html",
+    "expedia": "https://www.expedia.com/Cairo-Hotels-Four-Seasons-Hotel-Cairo-At-Nile-Plaza.h1083214.Hotel-Information",
+    "hotels": "https://www.hotels.com/ho234548/four-seasons-hotel-cairo-at-nile-plaza-cairo-egypt/",
+    "tripadvisor": "https://www.tripadvisor.com/Hotel_Review-g294201-d308077-Reviews-Four_Seasons_Hotel_Cairo_at_Nile_Plaza-Cairo_Cairo_Governorate.html"
+  },
+  "The Nile Ritz-Carlton": {
+    "booking": "https://www.booking.com/hotel/eg/the-nile-ritz-carlton-cairo.en-gb.html",
+    "agoda": "https://www.agoda.com/the-nile-ritz-carlton-cairo/hotel/cairo-eg.html",
+    "expedia": "https://www.expedia.com/Cairo-Hotels-The-Nile-Ritz-Carlton.h11355415.Hotel-Information",
+    "hotels": "https://www.hotels.com/ho526555/the-nile-ritz-carlton-cairo-cairo-egypt/",
+    "tripadvisor": "https://www.tripadvisor.com/Hotel_Review-g294201-d302302-Reviews-The_Nile_Ritz_Carlton_Cairo-Cairo_Cairo_Governorate.html"
+  }
 }
