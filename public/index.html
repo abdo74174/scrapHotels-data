@@ -532,6 +532,41 @@
                     <button class="btn-start" id="btnScrapeCustom">📅 SCRAPE RANGE</button>
                 </div>
             </div>
+
+            <!-- New Hotel Settings Section -->
+            <div id="hotelSettingsSection" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed var(--border);">
+                <div class="site-selector-header" style="margin-bottom: 1rem;">
+                    <span>Property URL Configuration</span>
+                    <button class="action-link" id="btnSaveUrls">Save Configuration</button>
+                </div>
+                <div style="display: grid; gap: 0.8rem;">
+                    <div class="url-input-row">
+                        <span class="url-site-dot" style="background: var(--site-booking);"></span>
+                        <label>Booking.com</label>
+                        <input type="text" id="url-booking" placeholder="Paste Booking.com English URL here...">
+                    </div>
+                    <div class="url-input-row">
+                        <span class="url-site-dot" style="background: var(--site-agoda);"></span>
+                        <label>Agoda.com</label>
+                        <input type="text" id="url-agoda" placeholder="Paste Agoda.com URL here...">
+                    </div>
+                    <div class="url-input-row">
+                        <span class="url-site-dot" style="background: var(--site-expedia);"></span>
+                        <label>Expedia.com</label>
+                        <input type="text" id="url-expedia" placeholder="Paste Expedia.com URL here...">
+                    </div>
+                    <div class="url-input-row">
+                        <span class="url-site-dot" style="background: var(--site-hotels);"></span>
+                        <label>Hotels.com</label>
+                        <input type="text" id="url-hotels" placeholder="Paste Hotels.com URL here...">
+                    </div>
+                    <div class="url-input-row">
+                        <span class="url-site-dot" style="background: var(--site-tripadvisor);"></span>
+                        <label>Tripadvisor</label>
+                        <input type="text" id="url-tripadvisor" placeholder="Paste Tripadvisor.com URL here...">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- ═══ SITE STATUS CARDS ═══ -->
@@ -683,12 +718,14 @@
         //  HOTEL SELECTOR LOGIC
         // ═══════════════════════════════════════════════════════════
         const hotelSelector = $('#hotelPresetSelector');
+        let allHotels = {};
         
         // Load hotel list from API
         fetch('/api/hotels')
             .then(res => res.json())
             .then(hotels => {
-                hotels.forEach(hotel => {
+                allHotels = hotels;
+                Object.keys(hotels).forEach(hotel => {
                     const opt = document.createElement('option');
                     opt.value = hotel;
                     opt.textContent = hotel;
@@ -702,7 +739,58 @@
                 resetUI();
                 return;
             }
+            $('#hotelSettingsSection').style.display = 'block';
+            populateUrlInputs(hotelName);
             updateHotelContext(hotelName);
+        });
+
+        function populateUrlInputs(hotelName) {
+            const urls = allHotels[hotelName] || {};
+            $('#url-booking').value = urls.booking || '';
+            $('#url-agoda').value = urls.agoda || '';
+            $('#url-expedia').value = urls.expedia || '';
+            $('#url-hotels').value = urls.hotels || '';
+            $('#url-tripadvisor').value = urls.tripadvisor || '';
+        }
+
+        $('#btnSaveUrls').addEventListener('click', async () => {
+            if (!currentHotel) return;
+            
+            const btn = $('#btnSaveUrls');
+            const originalText = btn.textContent;
+            btn.textContent = 'Saving...';
+            btn.disabled = true;
+
+            const updatedUrls = {
+                booking: $('#url-booking').value,
+                agoda: $('#url-agoda').value,
+                expedia: $('#url-expedia').value,
+                hotels: $('#url-hotels').value,
+                tripadvisor: $('#url-tripadvisor').value
+            };
+
+            try {
+                const response = await fetch('/api/hotels/update', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ hotelName: currentHotel, urls: updatedUrls })
+                });
+
+                if (response.ok) {
+                    allHotels[currentHotel] = updatedUrls;
+                    btn.textContent = '✅ Saved!';
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error('Save failed');
+                }
+            } catch (err) {
+                alert('Failed to save URLs: ' + err.message);
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
         });
 
         function updateHotelContext(hotelName) {
@@ -727,6 +815,7 @@
 
         function resetUI() {
             currentHotel = '';
+            $('#hotelSettingsSection').style.display = 'none';
             $('#currentHotelName').textContent = 'Select a hotel to begin...';
             $('#totalCount').textContent = '0';
             $$('.stat-value').forEach(v => v.textContent = '0');

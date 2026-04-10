@@ -1,16 +1,16 @@
 {
-  "Four Seasons Cairo": {
-    "booking": "https://www.booking.com/hotel/eg/four-seasons-cairo-at-nile-plaza.en-gb.html",
-    "agoda": "https://www.agoda.com/four-seasons-hotel-cairo-at-nile-plaza/hotel/cairo-eg.html",
-    "expedia": "https://www.expedia.com/Cairo-Hotels-Four-Seasons-Hotel-Cairo-At-Nile-Plaza.h1083214.Hotel-Information",
-    "hotels": "https://www.hotels.com/ho234548/four-seasons-hotel-cairo-at-nile-plaza-cairo-egypt/",
-    "tripadvisor": "https://www.tripadvisor.com/Hotel_Review-g294201-d308077-Reviews-Four_Seasons_Hotel_Cairo_at_Nile_Plaza-Cairo_Cairo_Governorate.html"
-  },
-  "The Nile Ritz-Carlton": {
-    "booking": "https://www.booking.com/hotel/eg/the-nile-ritz-carlton-cairo.en-gb.html",
-    "agoda": "https://www.agoda.com/the-nile-ritz-carlton-cairo/hotel/cairo-eg.html",
-    "expedia": "https://www.expedia.com/Cairo-Hotels-The-Nile-Ritz-Carlton.h11355415.Hotel-Information",
-    "hotels": "https://www.hotels.com/ho526555/the-nile-ritz-carlton-cairo-cairo-egypt/",
-    "tripadvisor": "https://www.tripadvisor.com/Hotel_Review-g294201-d302302-Reviews-The_Nile_Ritz_Carlton_Cairo-Cairo_Cairo_Governorate.html"
-  }
+    "Four Seasons Cairo": {
+        "booking": "https://www.booking.com/hotel/eg/four-seasons-cairo-at-nile-plaza.en-gb.html",
+        "agoda": "https://www.agoda.com/four-seasons-hotel-cairo-at-nile-plaza/hotel/cairo-eg.html",
+        "expedia": "https://www.expedia.com/Cairo-Hotels-Four-Seasons-Hotel-Cairo-At-Nile-Plaza.h1083214.Hotel-Information",
+        "hotels": "https://www.hotels.com/ho234548/four-seasons-hotel-cairo-at-nile-plaza-cairo-egypt/",
+        "tripadvisor": "https://www.tripadvisor.com/Hotel_Review-g294201-d308077-Reviews-Four_Seasons_Hotel_Cairo_at_Nile_Plaza-Cairo_Cairo_Governorate.html"
+    },
+    "The Nile Ritz-Carlton": {
+        "booking": "https://www.booking.com/hotel/eg/the-nile-ritz-carlton-cairo.en-gb.html",
+        "agoda": "https://www.agoda.com/the-nile-ritz-carlton-cairo/hotel/cairo-eg.html",
+        "expedia": "https://www.expedia.com/Cairo-Hotels-The-Nile-Ritz-Carlton.h11355415.Hotel-Information",
+        "hotels": "https://www.hotels.com/ho526555/the-nile-ritz-carlton-cairo-cairo-egypt/",
+        "tripadvisor": "https://www.tripadvisor.com/Hotel_Review-g294201-d302302-Reviews-The_Nile_Ritz_Carlton_Cairo-Cairo_Cairo_Governorate.html"
+    }
 }

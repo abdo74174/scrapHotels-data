@@ -2,6 +2,7 @@ import express from 'express';
 import { createServer } from 'node:http';
 import { Server } from 'socket.io';
 import path from 'node:path';
+import fs from 'node:fs';
 
 import { 
     SITE_CONFIGS, 
@@ -23,7 +24,27 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // API Routes
-app.get('/api/hotels', (req, res) => res.json(Object.keys(loadHotelUrls())));
+app.get('/api/hotels', (req, res) => {
+    const hotels = loadHotelUrls();
+    console.log(`🏨 [API] Loading ${Object.keys(hotels).length} hotels for dashboard`);
+    res.json(hotels);
+});
+
+app.post('/api/hotels/update', (req, res) => {
+    const { hotelName, urls } = req.body;
+    if (!hotelName || !urls) return res.status(400).json({ error: 'Missing hotelName or urls' });
+
+    const allUrls = loadHotelUrls();
+    allUrls[hotelName] = urls;
+
+    try {
+        fs.writeFileSync('./data/hotel_urls.json', JSON.stringify(allUrls, null, 2));
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to save URLs' });
+    }
+});
+
 app.get('/api/state', (req, res) => res.json(loadState(req.query.hotel)));
 
 app.get('/api/reviews/:site', (req, res) => {
@@ -118,8 +139,8 @@ server.listen(PORT, () => {
     console.log(`📂  Data saved to memory and local files`);
 
     // One-time startup cleanup logic for all hotels
-    const allHotels = loadHotelUrls();
-    Object.keys(allHotels).forEach(hotelName => {
+    const allUrls = loadHotelUrls();
+    Object.keys(allUrls).forEach(hotelName => {
         Object.keys(SITE_CONFIGS).forEach(siteKey => {
             const reviews = loadReviews(hotelName, siteKey);
             if (reviews.length > 0) {
