@@ -3,1062 +3,569 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Review Scraper — Four Seasons Cairo</title>
+    <title>Stellar — Hotel Intelligence Dashboard</title>
     <script src="/socket.io/socket.io.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        /* ═══════════════════════════════════════════════════════════
-           DESIGN TOKENS
-           ═══════════════════════════════════════════════════════════ */
         :root {
-            --bg-deep: #080c18;
-            --bg-card: rgba(255,255,255,0.04);
-            --bg-card-hover: rgba(255,255,255,0.07);
+            /* ═══ LIGHT THEME (Default) ═══ */
+            --bg-app: #f8fafc;
+            --bg-sidebar: #ffffff;
+            --bg-card: #ffffff;
+            --bg-card-hover: #f1f5f9;
+            --text-main: #0f172a;
+            --text-dim: #334155;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --border-hover: #cbd5e1;
+            
+            --accent-primary: #6366f1; /* Indigo */
+            --accent-emerald: #10b981;
+            --accent-gold: #f59e0b;
+            --accent-rose: #f43f5e;
+            
+            --site-booking: #003580;
+            --site-agoda: #5542f6;
+            --site-expedia: #fbcb33;
+            --site-hotels: #d32f2f;
+            --site-tripadvisor: #34e0a1;
+
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.02);
+            --shadow-md: 0 10px 15px -3px rgba(0,0,0,0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0,0,0,0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-heading: 'Outfit', sans-serif;
+        }
+
+        /* ═══ DARK MODE CLASS (Optional Switch) ═══ */
+        .dark-mode {
+            --bg-app: #0b0f19;
+            --bg-sidebar: #111827;
+            --bg-card: #1f2937;
+            --bg-card-hover: #2d3748;
+            --text-main: #f8fafc;
+            --text-dim: #cbd5e1;
+            --text-muted: #64748b;
             --border: rgba(255,255,255,0.08);
             --border-hover: rgba(255,255,255,0.15);
-            --text-main: #f0f2f8;
-            --text-dim: rgba(240,242,248,0.5);
-            --text-muted: rgba(240,242,248,0.35);
-
-            --accent-gold: #d4a855;
-            --accent-gold-glow: rgba(212,168,85,0.25);
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --accent-emerald: #34d399;
-            --accent-rose: #f43f5e;
-
-            --site-booking: #003580;
-            --site-agoda: #5542F6;
-            --site-expedia: #FBCF33;
-            --site-hotels: #D32F2F;
-            --site-tripadvisor: #00AF87;
-
-            --radius: 16px;
-            --radius-sm: 10px;
-            --radius-xs: 6px;
-            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           RESET & BASE
-           ═══════════════════════════════════════════════════════════ */
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-        body {
-            background: var(--bg-deep);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, sans-serif;
-            min-height: 100vh;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: var(--bg-app); 
+            color: var(--text-main); 
+            font-family: var(--font-main); 
             overflow-x: hidden;
+            transition: background 0.3s ease;
         }
 
-        /* Animated gradient orbs */
-        body::before, body::after {
-            content: '';
-            position: fixed;
-            border-radius: 50%;
-            filter: blur(120px);
-            z-index: -1;
-            opacity: 0.15;
-            animation: floatOrb 20s ease-in-out infinite alternate;
+        .app { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+
+        /* ═══ SIDEBAR ═══ */
+        .sidebar {
+            background: var(--bg-sidebar); border-right: 1px solid var(--border);
+            padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 2rem;
+            position: sticky; top: 0; height: 100vh; overflow-y: auto;
         }
-        body::before {
-            width: 600px; height: 600px;
-            background: var(--accent-gold);
-            top: -200px; right: -100px;
+        .brand { display: flex; align-items: center; gap: 0.75rem; }
+        .brand-logo { 
+            width: 40px; height: 40px; background: var(--accent-primary); 
+            border-radius: 12px; display: grid; place-items: center; color: white;
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
-        body::after {
-            width: 500px; height: 500px;
-            background: var(--accent-purple);
-            bottom: -150px; left: -100px;
-            animation-delay: -10s;
-        }
-        @keyframes floatOrb {
-            0%   { transform: translate(0,0) scale(1);   }
-            50%  { transform: translate(60px,40px) scale(1.15); }
-            100% { transform: translate(-30px,80px) scale(0.95); }
+        .brand h1 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; letter-spacing: -0.5px; }
+
+        .nav-label { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1.5px; margin-bottom: 0.75rem; display: block; }
+        .nav-card { background: rgba(0,0,0,0.02); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.25rem; }
+        .dark-mode .nav-card { background: rgba(255,255,255,0.03); }
+
+        .hotel-selector-styled select {
+            width: 100%; background: transparent; border: none; font-family: var(--font-main);
+            font-weight: 700; color: var(--text-main); font-size: 0.9rem; outline: none; cursor: pointer;
         }
 
-        /* ═══════════════════════════════════════════════════════════
-           LAYOUT
-           ═══════════════════════════════════════════════════════════ */
-        .app { max-width: 1440px; margin: 0 auto; padding: 2rem 2.5rem 4rem; }
+        /* ═══ MAIN CONTENT ═══ */
+        .main-content { padding: 2.5rem; display: flex; flex-direction: column; gap: 2rem; }
 
-        /* ═══ HEADER ═══ */
-        .header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 2.5rem;
-        }
-        .header-left { display: flex; align-items: center; gap: 1rem; }
-        .logo-icon {
-            width: 48px; height: 48px; border-radius: 14px;
-            background: linear-gradient(135deg, var(--accent-gold), #b8860b);
-            display: grid; place-items: center; font-size: 1.5rem;
-            box-shadow: 0 4px 20px var(--accent-gold-glow);
-        }
-        .header h1 {
-            font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 1.8rem;
-            background: linear-gradient(135deg, var(--accent-gold), #fff0c8);
-            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
-        }
-        .header-subtitle {
-            font-size: 0.82rem; color: var(--text-dim); margin-top: 2px;
-        }
-        .header-right { display: flex; align-items: center; gap: 1rem; }
-        .badge-total {
-            background: var(--bg-card); border: 1px solid var(--border);
-            padding: 0.5rem 1.2rem; border-radius: 50px;
-            font-weight: 600; font-size: 0.95rem;
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-        .badge-total .count { color: var(--accent-gold); font-size: 1.1rem; }
-
-        /* ═══ CONTROLS PANEL ═══ */
-        .controls {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 1.8rem;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(20px);
-        }
-        .controls-title {
-            font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.1rem;
-            margin-bottom: 1.2rem; color: var(--text-main);
-        }
-        .controls-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr auto;
-            gap: 1.2rem; align-items: end;
-        }
-        .input-group label {
-            display: block; font-size: 0.78rem; font-weight: 600;
-            color: var(--text-dim); margin-bottom: 0.4rem;
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .input-group input[type="date"] {
-            width: 100%; padding: 0.7rem 1rem;
-            background: rgba(0,0,0,0.35); border: 1px solid var(--border);
-            border-radius: var(--radius-sm); color: var(--text-main);
-            font-family: 'Inter', sans-serif; font-size: 0.9rem;
+        /* Stats */
+        .stats-overview { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+        .stat-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);
+            padding: 1.5rem; position: relative; overflow: hidden; box-shadow: var(--shadow-sm);
             transition: var(--transition);
         }
-        .input-group input:focus {
-            outline: none; border-color: var(--accent-gold);
-            box-shadow: 0 0 0 3px var(--accent-gold-glow);
+        .stat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border-hover); }
+        .stat-card .val { font-size: 1.75rem; font-weight: 800; color: var(--text-main); font-family: var(--font-heading); margin: 0.5rem 0; }
+        .stat-card .lab { font-size: 0.8rem; color: var(--text-muted); font-weight: 600; }
+        .stat-card .icon-box { 
+            width: 38px; height: 38px; border-radius: 10px; background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-primary); display: grid; place-items: center; margin-bottom: 0.5rem;
         }
-        .btn-start {
-            padding: 0.74rem 1.2rem; border: none; border-radius: var(--radius-sm);
-            background: rgba(255,255,255,0.06); border: 1px solid var(--border);
-            color: var(--text-main); font-weight: 600; font-size: 0.82rem;
-            cursor: pointer; transition: var(--transition);
-            white-space: nowrap; height: fit-content;
-            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-        }
-        .btn-start:hover:not(:disabled) {
-            background: var(--bg-card-hover); border-color: var(--border-hover);
-        }
-        .btn-start.primary {
-            background: linear-gradient(135deg, var(--accent-gold), #b8860b);
-            color: #fff; border: none; font-size: 0.9rem; font-weight: 700;
-            box-shadow: 0 4px 15px var(--accent-gold-glow);
-        }
-        .btn-start.primary:hover:not(:disabled) {
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px var(--accent-gold-glow);
-        }
-        .btn-start.accent {
-            background: rgba(139, 92, 246, 0.15); border-color: rgba(139, 92, 246, 0.3);
-            color: #c4b5fd;
-        }
-        .btn-start.accent:hover:not(:disabled) {
-            background: rgba(139, 92, 246, 0.25); border-color: rgba(139, 92, 246, 0.5);
-        }
-        .btn-start:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-        .btn-start.running {
-            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
-            animation: pulseBtn 2s ease-in-out infinite; color: white; border: none;
-        }
-        @keyframes pulseBtn {
-            0%, 100% { box-shadow: 0 4px 15px rgba(139,92,246,0.3); }
-            50%      { box-shadow: 0 4px 30px rgba(139,92,246,0.5); }
-        }
+        .stat-card.primary { border-left: 4px solid var(--accent-primary); }
+        .stat-card.gold { border-left: 4px solid var(--accent-gold); }
+        .stat-card.gold .icon-box { background: rgba(245, 158, 11, 0.1); color: var(--accent-gold); }
+        .stat-card.emerald { border-left: 4px solid var(--accent-emerald); }
+        .stat-card.emerald .icon-box { background: rgba(16, 185, 129, 0.1); color: var(--accent-emerald); }
 
-        .buttons-row {
-            display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem;
-            margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+        /* Panels */
+        .panel { 
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); 
+            padding: 1.8rem; box-shadow: var(--shadow-sm);
         }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .panel-title { display: flex; align-items: center; gap: 0.75rem; font-weight: 800; font-family: var(--font-heading); font-size: 1.1rem; }
+        .panel-title i { color: var(--accent-primary); }
 
-        /* ═══ SITE SELECTOR ═══ */
-        .site-selector {
-            display: flex; flex-wrap: wrap; gap: 0.6rem;
-            margin-top: 1.2rem; padding-top: 1.2rem;
-            border-top: 1px solid var(--border);
-        }
-        .site-chip {
-            display: flex; align-items: center; gap: 0.5rem;
-            padding: 0.5rem 1rem; border-radius: 50px;
-            background: var(--bg-card); border: 1px solid var(--border);
-            cursor: pointer; transition: var(--transition);
-            font-size: 0.85rem; font-weight: 500;
-            user-select: none;
-        }
-        .site-chip:hover { border-color: var(--border-hover); background: var(--bg-card-hover); }
-        .site-chip.selected { border-color: var(--accent-gold); background: rgba(212,168,85,0.1); }
-        .site-chip .dot {
-            width: 10px; height: 10px; border-radius: 50%;
-        }
-        .site-chip input { display: none; }
+        .dashboard-row { display: grid; grid-template-columns: 1.5fr 1fr; gap: 1.5rem; }
 
-        .site-selector-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 0.8rem;
+        /* Scrape Buttons */
+        .scrape-options { display: flex; flex-direction: column; gap: 0.8rem; }
+        .scrape-btn {
+            background: var(--bg-app); border: 1px solid var(--border); color: var(--text-main);
+            padding: 0.85rem 1.25rem; border-radius: 12px; font-weight: 700; cursor: pointer;
+            display: flex; align-items: center; justify-content: space-between; transition: var(--transition);
+            font-family: var(--font-main);
         }
-        .site-selector-header span {
-            font-size: 0.78rem; font-weight: 600; color: var(--text-dim);
-            text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .site-selector-actions {
-            display: flex; gap: 0.8rem;
-        }
-        .action-link {
-            font-size: 0.72rem; color: var(--accent-gold); cursor: pointer;
-            text-decoration: underline; background: none; border: none;
-            padding: 0; font-weight: 500;
-        }
-        .action-link:hover { color: #fff; }
+        .scrape-btn:hover { background: var(--bg-card-hover); border-color: var(--border-hover); }
+        .scrape-btn.primary { background: var(--accent-primary); border-color: var(--accent-primary); color: white; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25); }
+        .scrape-btn.primary:hover { background: #4f46e5; transform: translateY(-2px); }
+        .scrape-btn.running i { animation: spin 2s linear infinite; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 
-        /* ═══ URL INPUTS ═══ */
-        .url-inputs-section {
-            margin-top: 1.2rem; padding-top: 1.2rem;
-            border-top: 1px solid var(--border);
+        /* Site Pills */
+        .site-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+        .site-pill {
+            padding: 0.5rem 1rem; border-radius: 50px; background: var(--bg-app);
+            border: 1px solid var(--border); font-size: 0.75rem; font-weight: 700;
+            cursor: pointer; transition: var(--transition); display: flex; align-items: center; gap: 0.6rem;
+            color: var(--text-dim);
         }
-        .url-inputs-header {
-            display: flex; align-items: center; justify-content: space-between;
-            cursor: pointer; padding: 0.5rem 0; margin-bottom: 0.8rem;
-            user-select: none;
-        }
-        .url-inputs-header span:first-child {
-            font-weight: 600; font-size: 0.95rem;
-        }
-        .url-toggle-hint {
-            font-size: 0.75rem; color: var(--text-muted); font-style: italic;
-        }
-        .url-inputs-grid {
-            display: flex; flex-direction: column; gap: 0.7rem;
-            overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease;
-            max-height: 500px; opacity: 1;
-        }
-        .url-inputs-grid.collapsed {
-            max-height: 0; opacity: 0;
-        }
-        .url-input-row {
-            display: grid; grid-template-columns: 12px 110px 1fr;
-            align-items: center; gap: 0.8rem;
-        }
-        .url-site-dot {
-            width: 10px; height: 10px; border-radius: 50%;
-        }
-        .url-input-row label {
-            font-size: 0.82rem; font-weight: 600; color: var(--text-dim);
-            white-space: nowrap;
-        }
-        .url-input-row input {
-            width: 100%; padding: 0.55rem 0.8rem;
-            background: rgba(0,0,0,0.35); border: 1px solid var(--border);
-            border-radius: var(--radius-xs); color: var(--text-main);
-            font-family: 'Inter', monospace; font-size: 0.8rem;
+        .site-pill.active { border-color: var(--accent-primary); background: rgba(99, 102, 241, 0.08); color: var(--accent-primary); }
+        .site-pill .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+        /* Review Feed */
+        .feed-container { display: flex; flex-direction: column; gap: 1.5rem; }
+        .feed-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+        .search-box { position: relative; flex: 1; }
+        .search-box input {
+            width: 100%; background: var(--bg-app); border: 1px solid var(--border);
+            border-radius: 14px; padding: 0.75rem 1rem 0.75rem 2.8rem;
+            color: var(--text-main); font-family: var(--font-main); font-size: 0.88rem; outline: none;
             transition: var(--transition);
         }
-        .url-input-row input:focus {
-            outline: none; border-color: var(--accent-gold);
-            box-shadow: 0 0 0 3px var(--accent-gold-glow);
-        }
-        .url-input-row input::placeholder {
-            color: var(--text-muted); font-size: 0.75rem;
-        }
+        .search-box input:focus { border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        .search-box i { position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 18px; }
 
-        /* ═══ SITE CARDS GRID ═══ */
-        .sites-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-            gap: 1rem; margin-bottom: 2rem;
+        .reviews-list { 
+            display: grid; grid-template-columns: 1fr; gap: 1rem; 
+            max-height: 700px; overflow-y: auto; padding-right: 0.5rem;
         }
-        .site-card {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 1.4rem;
-            backdrop-filter: blur(20px);
-            transition: var(--transition);
-            position: relative; overflow: hidden;
-        }
-        .site-card:hover { border-color: var(--border-hover); transform: translateY(-2px); }
-        .site-card::before {
-            content: ''; position: absolute; top: 0; left: 0; right: 0;
-            height: 3px; border-radius: var(--radius) var(--radius) 0 0;
-        }
-        .site-card[data-site="booking"]::before      { background: var(--site-booking); }
-        .site-card[data-site="agoda"]::before         { background: var(--site-agoda); }
-        .site-card[data-site="expedia"]::before        { background: var(--site-expedia); }
-        .site-card[data-site="hotels"]::before         { background: var(--site-hotels); }
-        .site-card[data-site="tripadvisor"]::before    { background: var(--site-tripadvisor); }
+        .reviews-list::-webkit-scrollbar { width: 6px; }
+        .reviews-list::-webkit-scrollbar-track { background: transparent; }
+        .reviews-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
 
-        .site-card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.8rem; }
-        .site-card-name { font-weight: 700; font-size: 1rem; }
-        .site-card-badge {
-            font-size: 0.72rem; padding: 3px 10px; border-radius: 50px;
-            font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;
-        }
-        .site-card-badge.idle    { background: rgba(255,255,255,0.06); color: var(--text-dim); }
-        .site-card-badge.running { background: rgba(139,92,246,0.2); color: var(--accent-purple); animation: pulse 1.5s ease-in-out infinite; }
-        .site-card-badge.done    { background: rgba(52,211,153,0.15); color: var(--accent-emerald); }
-        .site-card-badge.error   { background: rgba(244,63,94,0.15); color: var(--accent-rose); }
-        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.6; } }
-
-        .site-card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; margin-bottom: 0.8rem; }
-        .stat-item { min-width: 0; }
-        .stat-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.3px; }
-        .stat-value { font-size: 1.1rem; font-weight: 700; margin-top: 2px; }
-        .stat-value.gold { color: var(--accent-gold); }
-
-        .site-card-status {
-            font-size: 0.78rem; color: var(--text-dim);
-            padding: 0.5rem 0.7rem; background: rgba(0,0,0,0.2);
-            border-radius: var(--radius-xs); min-height: 32px;
-            display: flex; align-items: center; gap: 0.5rem;
-        }
-        .site-card-status .spinner-mini {
-            width: 14px; height: 14px; border: 2px solid rgba(255,255,255,0.1);
-            border-left-color: var(--accent-purple); border-radius: 50%;
-            animation: spin 0.8s linear infinite; flex-shrink: 0;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ═══ LAST SCRAPED INFO ═══ */
-        .last-scraped-bar {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 1.2rem 1.8rem;
-            margin-bottom: 2rem; display: flex; align-items: center;
-            gap: 1rem; flex-wrap: wrap;
-        }
-        .last-scraped-bar .icon { font-size: 1.5rem; }
-        .last-scraped-bar .info {
-            font-size: 0.85rem; color: var(--text-dim); line-height: 1.5;
-        }
-        .last-scraped-bar .info strong { color: var(--accent-gold); font-weight: 600; }
-
-        /* ═══ REVIEWS PANEL ═══ */
-        .reviews-panel {
-            background: var(--bg-card); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 1.8rem;
-            backdrop-filter: blur(20px);
-        }
-        .reviews-header {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 1.5rem;
-        }
-        .reviews-title {
-            font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 1.2rem;
-        }
-        .reviews-filter {
-            display: flex; gap: 0.5rem;
-        }
-        .filter-chip {
-            padding: 0.35rem 0.9rem; border-radius: 50px;
-            background: var(--bg-card); border: 1px solid var(--border);
-            cursor: pointer; font-size: 0.8rem; font-weight: 500;
-            transition: var(--transition); color: var(--text-dim);
-        }
-        .filter-chip:hover { border-color: var(--border-hover); }
-        .filter-chip.active { border-color: var(--accent-gold); color: var(--accent-gold); background: rgba(212,168,85,0.08); }
-
-        /* Reviews list */
-        #reviewsList {
-            max-height: 70vh; overflow-y: auto;
-            padding-right: 8px;
-        }
         .review-card {
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-            border-radius: var(--radius-sm); padding: 1.2rem 1.4rem;
-            margin-bottom: 0.8rem;
-            animation: fadeSlideIn 0.35s ease-out forwards;
-            opacity: 0; transition: var(--transition);
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius-md); padding: 1.5rem; transition: var(--transition);
         }
-        .review-card:hover { border-color: var(--border-hover); background: rgba(255,255,255,0.04); }
-        @keyframes fadeSlideIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to   { opacity: 1; transform: translateY(0); }
+        .review-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-sm); }
+        .review-top { display: flex; justify-content: space-between; margin-bottom: 1rem; }
+        .reviewer-info { display: flex; align-items: center; gap: 1rem; }
+        .avatar { 
+            width: 44px; height: 44px; border-radius: 12px; background: rgba(99, 102, 241, 0.1);
+            color: var(--accent-primary); display: grid; place-items: center; font-weight: 800; font-family: var(--font-heading);
         }
+        .name-meta h4 { font-size: 0.95rem; font-weight: 700; color: var(--text-main); }
+        .name-meta span { font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+        .rating-badge { padding: 0.4rem 0.7rem; background: rgba(245, 158, 11, 0.1); color: var(--accent-gold); border-radius: 10px; font-weight: 800; font-size: 1rem; }
 
-        .review-card-top {
-            display: flex; align-items: center; justify-content: space-between;
-            margin-bottom: 0.6rem;
-        }
-        .review-card-left { display: flex; align-items: center; gap: 0.8rem; }
-        .review-site-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
-        .review-site-label { font-size: 0.72rem; color: var(--text-muted); font-weight: 500; }
-        .review-reviewer { font-weight: 600; font-size: 0.95rem; }
-        .review-nationality { font-size: 0.78rem; color: var(--text-dim); }
+        .review-content h5 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .review-content p { color: var(--text-dim); line-height: 1.7; font-size: 0.9rem; }
+        .review-footer { display: flex; align-items: center; gap: 1.5rem; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+        .meta-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.75rem; color: var(--text-muted); font-weight: 600; }
+        .site-tag { padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-left: auto; }
 
-        .review-rating {
-            padding: 4px 10px; border-radius: var(--radius-xs);
-            font-weight: 700; font-size: 0.85rem;
-            background: rgba(212,168,85,0.12); color: var(--accent-gold);
+        /* Modal */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+            display: none; place-items: center; z-index: 1000; animation: fadeIn 0.15s ease-out;
         }
-        .review-title-text {
-            font-weight: 600; font-size: 0.95rem; margin-bottom: 0.5rem;
-            color: var(--text-main);
+        .modal {
+            background: var(--bg-card); border-radius: var(--radius-lg); padding: 2.5rem;
+            width: 100%; max-width: 440px; box-shadow: var(--shadow-lg); animation: slideUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .review-body {
-            font-size: 0.88rem; color: var(--text-dim); line-height: 1.6;
-            margin-bottom: 0.6rem;
-        }
-        .review-meta {
-            display: flex; gap: 1rem; flex-wrap: wrap;
-            font-size: 0.75rem; color: var(--text-muted);
-        }
-        .review-meta span { display: flex; align-items: center; gap: 0.3rem; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .empty-state {
-            text-align: center; padding: 4rem 2rem; color: var(--text-muted);
-        }
-        .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.3; }
-        .empty-state p { font-size: 0.9rem; }
+        .modal-header { margin-bottom: 1.5rem; }
+        .modal-title { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 800; }
+        .modal-footer { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 2rem; }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(212,168,85,0.3); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(212,168,85,0.5); }
+        .btn-cancel { background: none; border: 1px solid var(--border); padding: 0.75rem 1.5rem; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        .btn-cancel:hover { background: var(--bg-app); }
 
-        /* ═══ RESPONSIVE ═══ */
-        @media (max-width: 900px) {
-            .app { padding: 1rem; }
-            .controls-grid { grid-template-columns: 1fr; }
-            .header { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            .sites-grid { grid-template-columns: 1fr 1fr; }
+        /* Action Buttons */
+        .btn-add-hotel {
+            width: 100%; margin-top: 1rem; padding: 0.75rem; border-radius: 10px;
+            background: rgba(99, 102, 241, 0.05); color: var(--accent-primary);
+            border: 1px dashed var(--accent-primary); font-weight: 700; cursor: pointer;
+            transition: var(--transition); display: flex; align-items: center; justify-content: center; gap: 0.5rem;
         }
-        @media (max-width: 600px) {
-            .sites-grid { grid-template-columns: 1fr; }
+        .btn-add-hotel:hover { background: rgba(99, 102, 241, 0.1); }
+
+        .action-link { background: none; border: none; color: var(--accent-primary); font-size: 0.75rem; font-weight: 800; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; }
+        .action-link:hover { text-decoration: underline; }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .app { grid-template-columns: 1fr; }
+            .sidebar { position: static; height: auto; border-right: none; border-bottom: 1px solid var(--border); }
+            .stats-overview { grid-template-columns: repeat(2, 1fr); }
+            .dashboard-row { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
     <div class="app">
-
-        <!-- ═══ HEADER ═══ -->
-        <header class="header">
-            <div class="header-left">
-                <div class="logo-icon">🏨</div>
-                <div>
-                    <h1>Hotel Review Scraper</h1>
-                    <div class="header-subtitle" id="currentHotelName">Select a hotel to begin...</div>
-                </div>
+        <!-- ═══ SIDEBAR ═══ -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-logo"><i data-lucide="layout-dashboard"></i></div>
+                <h1>Stellar</h1>
+                <button id="themeToggle" style="margin-left: auto; background: none; border: none; cursor: pointer; color: var(--text-muted);"><i data-lucide="sun"></i></button>
             </div>
-            <div class="header-right">
-                <div class="hotel-selector-wrapper" style="margin-right: 1.5rem;">
-                    <select id="hotelPresetSelector" style="background: var(--bg-card); border: 1px solid var(--border); color: var(--text-main); padding: 0.6rem 1.2rem; border-radius: var(--radius-sm); font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; outline: none; transition: var(--transition);">
-                        <option value="">-- Choose Hotel --</option>
+
+            <div class="nav-card">
+                <span class="nav-label">Properties</span>
+                <div class="hotel-selector-styled" style="margin-bottom: 0.5rem;">
+                    <select id="hotelPresetSelector">
+                        <option value="">-- Select Property --</option>
                     </select>
                 </div>
-                <div class="badge-total">
-                    📋 Total Reviews: <span class="count" id="totalCount">0</span>
+                <button class="btn-add-hotel" id="openAddHotelModal">
+                    <i data-lucide="plus-circle" style="width: 14px;"></i> Add Property
+                </button>
+            </div>
+
+            <div id="sidebarHistory" class="nav-card" style="display: none; flex: 1; overflow-y: auto;">
+                <span class="nav-label">Scrape History</span>
+                <div id="lastScrapedInfo" style="font-size: 0.72rem; color: var(--text-dim); line-height: 1.5;"></div>
+            </div>
+
+            <div class="nav-card" style="margin-top: auto;">
+                <span class="nav-label">System</span>
+                <div style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.8rem; font-weight: 700;">
+                    <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-emerald); box-shadow: 0 0 8px rgba(16,185,129,0.3);"></span>
+                    Ready
                 </div>
             </div>
-        </header>
+        </aside>
 
-        <!-- ═══ LAST SCRAPED BAR ═══ -->
-        <div class="last-scraped-bar" id="lastScrapedBar">
-            <span class="icon">📅</span>
-            <div class="info" id="lastScrapedInfo">Choose a hotel from the list above to see its scrape history.</div>
-        </div>
-
-        <!-- ═══ CONTROLS ═══ -->
-        <div class="controls">
-            <div class="controls-title">⚙️ Scrape Controls</div>
-            <div class="controls-grid">
+        <div class="modal-overlay" id="addHotelModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h2 class="modal-title">New Property</h2>
+                    <p style="color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem;">Create a profile to start tracking a new hotel.</p>
+                </div>
                 <div class="input-group">
-                    <label for="dateFrom">Date From (for custom)</label>
-                    <input type="date" id="dateFrom">
+                    <label class="nav-label">Hotel Name</label>
+                    <input type="text" id="newHotelName" placeholder="e.g. Grand Plaza Cairo">
                 </div>
-                <div class="input-group">
-                    <label for="dateTo">Date To (for custom)</label>
-                    <input type="date" id="dateTo">
-                </div>
-            </div>
-
-            <!-- Site selector section -->
-            <div class="site-selector-container">
-                <div class="site-selector-header">
-                    <span>1. Select Sites to Scrape</span>
-                    <div class="site-selector-actions">
-                        <button class="action-link" id="selectAll">Select All</button>
-                        <button class="action-link" id="deselectAll">Deselect All</button>
-                    </div>
-                </div>
-                <div class="site-selector" id="siteSelector">
-                    <label class="site-chip selected" data-site="booking">
-                        <input type="checkbox" value="booking" checked>
-                        <span class="dot" style="background: var(--site-booking);"></span>
-                        Booking.com
-                    </label>
-                    <label class="site-chip selected" data-site="agoda">
-                        <input type="checkbox" value="agoda" checked>
-                        <span class="dot" style="background: var(--site-agoda);"></span>
-                        Agoda.com
-                    </label>
-                    <label class="site-chip selected" data-site="expedia">
-                        <input type="checkbox" value="expedia" checked>
-                        <span class="dot" style="background: var(--site-expedia);"></span>
-                        Expedia.com
-                    </label>
-                    <label class="site-chip selected" data-site="hotels">
-                        <input type="checkbox" value="hotels" checked>
-                        <span class="dot" style="background: var(--site-hotels);"></span>
-                        Hotels.com
-                    </label>
-                    <label class="site-chip selected" data-site="tripadvisor">
-                        <input type="checkbox" value="tripadvisor" checked>
-                        <span class="dot" style="background: var(--site-tripadvisor);"></span>
-                        Tripadvisor.com
-                    </label>
-                </div>
-            </div>
-
-            <div class="buttons-row-container">
-                <div class="site-selector-header" style="margin-top: 1.5rem; margin-bottom: 0.5rem;">
-                    <span>2. Choose Scrape Mode</span>
-                </div>
-                <div class="buttons-row" style="margin-top: 0; padding-top: 0; border-top: none;">
-                    <button class="btn-start primary" id="btnScrapeAll">🚀 SCRAPE ALL DATA</button>
-                    <button class="btn-start accent" id="btnScrapeNew">🔄 SCRAPE NEW ONLY</button>
-                    <button class="btn-start" id="btnScrapeCustom">📅 SCRAPE RANGE</button>
-                </div>
-            </div>
-
-            <!-- New Hotel Settings Section -->
-            <div id="hotelSettingsSection" style="display: none; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px dashed var(--border);">
-                <div class="site-selector-header" style="margin-bottom: 1rem;">
-                    <span>Property URL Configuration</span>
-                    <button class="action-link" id="btnSaveUrls">Save Configuration</button>
-                </div>
-                <div style="display: grid; gap: 0.8rem;">
-                    <div class="url-input-row">
-                        <span class="url-site-dot" style="background: var(--site-booking);"></span>
-                        <label>Booking.com</label>
-                        <input type="text" id="url-booking" placeholder="Paste Booking.com English URL here...">
-                    </div>
-                    <div class="url-input-row">
-                        <span class="url-site-dot" style="background: var(--site-agoda);"></span>
-                        <label>Agoda.com</label>
-                        <input type="text" id="url-agoda" placeholder="Paste Agoda.com URL here...">
-                    </div>
-                    <div class="url-input-row">
-                        <span class="url-site-dot" style="background: var(--site-expedia);"></span>
-                        <label>Expedia.com</label>
-                        <input type="text" id="url-expedia" placeholder="Paste Expedia.com URL here...">
-                    </div>
-                    <div class="url-input-row">
-                        <span class="url-site-dot" style="background: var(--site-hotels);"></span>
-                        <label>Hotels.com</label>
-                        <input type="text" id="url-hotels" placeholder="Paste Hotels.com URL here...">
-                    </div>
-                    <div class="url-input-row">
-                        <span class="url-site-dot" style="background: var(--site-tripadvisor);"></span>
-                        <label>Tripadvisor</label>
-                        <input type="text" id="url-tripadvisor" placeholder="Paste Tripadvisor.com URL here...">
-                    </div>
+                <div class="modal-footer">
+                    <button class="btn-cancel" id="closeAddHotelModal">Cancel</button>
+                    <button class="scrape-btn primary" id="saveNewHotel" style="width:80px; padding: 0.6rem;">Create</button>
                 </div>
             </div>
         </div>
 
-        <!-- ═══ SITE STATUS CARDS ═══ -->
-        <div class="sites-grid" id="sitesGrid">
-            <div class="site-card" data-site="booking">
-                <div class="site-card-header">
-                    <span class="site-card-name">Booking.com</span>
-                    <span class="site-card-badge idle" id="badge-booking">IDLE</span>
+        <main class="main-content">
+            <!-- Stats -->
+            <section class="stats-overview">
+                <div class="stat-card primary">
+                    <div class="icon-box"><i data-lucide="database"></i></div>
+                    <div class="val" id="totalCount">0</div>
+                    <div class="lab">Total Reviews</div>
                 </div>
-                <div class="site-card-stats">
-                    <div class="stat-item">
-                        <div class="stat-label">Reviews</div>
-                        <div class="stat-value gold" id="count-booking">0</div>
+                <div class="stat-card gold">
+                    <div class="icon-box"><i data-lucide="star"></i></div>
+                    <div class="val" id="avgRating">0.0</div>
+                    <div class="lab">Est. Avg Rating</div>
+                </div>
+                <div class="stat-card emerald">
+                    <div class="icon-box"><i data-lucide="trending-up"></i></div>
+                    <div class="val" id="growthCount">0</div>
+                    <div class="lab">New Growth</div>
+                </div>
+                <div class="stat-card">
+                    <div class="icon-box"><i data-lucide="layers"></i></div>
+                    <div class="val" id="activeSitesCount">0</div>
+                    <div class="lab">Sources</div>
+                </div>
+            </section>
+
+            <div class="dashboard-row">
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i data-lucide="pie-chart"></i> Distribution</div>
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Last Scraped</div>
-                        <div class="stat-value" id="lastDate-booking" style="font-size:0.85rem;">Never</div>
+                    <div style="height: 220px;"><canvas id="distributionChart"></canvas></div>
+                </div>
+
+                <div class="panel">
+                    <div class="panel-header">
+                        <div class="panel-title"><i data-lucide="zap"></i> Operations</div>
+                    </div>
+                    <div class="scrape-options">
+                        <button class="scrape-btn primary" id="btnScrapeAll">Deep Scrape <i data-lucide="arrow-right"></i></button>
+                        <button class="scrape-btn" id="btnScrapeNew">Smart Sync <i data-lucide="refresh-cw"></i></button>
+                        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:0.5rem; margin-top:0.5rem;">
+                            <input type="date" id="dateFrom" style="background:var(--bg-app); border:1px solid var(--border); border-radius:6px; padding:0.4rem; font-size:0.75rem; color:var(--text-main);">
+                            <input type="date" id="dateTo" style="background:var(--bg-app); border:1px solid var(--border); border-radius:6px; padding:0.4rem; font-size:0.75rem; color:var(--text-main);">
+                        </div>
+                    </div>
+                    <div style="margin-top: 1.5rem;">
+                        <span class="nav-label">Enabled Sources</span>
+                        <div class="site-pills" id="siteSelector">
+                            <div class="site-pill active"><input type="checkbox" value="booking" checked style="display:none"><span class="dot" style="background:var(--site-booking)"></span> Booking</div>
+                            <div class="site-pill active"><input type="checkbox" value="agoda" checked style="display:none"><span class="dot" style="background:var(--site-agoda)"></span> Agoda</div>
+                            <div class="site-pill active"><input type="checkbox" value="expedia" checked style="display:none"><span class="dot" style="background:var(--site-expedia)"></span> Expedia</div>
+                            <div class="site-pill active"><input type="checkbox" value="hotels" checked style="display:none"><span class="dot" style="background:var(--site-hotels)"></span> Hotels</div>
+                            <div class="site-pill active"><input type="checkbox" value="tripadvisor" checked style="display:none"><span class="dot" style="background:var(--site-tripadvisor)"></span> TripAdvisor</div>
+                        </div>
                     </div>
                 </div>
-                <div class="site-card-status" id="status-booking">Ready to scrape</div>
             </div>
 
-            <div class="site-card" data-site="agoda">
-                <div class="site-card-header">
-                    <span class="site-card-name">Agoda.com</span>
-                    <span class="site-card-badge idle" id="badge-agoda">IDLE</span>
-                </div>
-                <div class="site-card-stats">
-                    <div class="stat-item">
-                        <div class="stat-label">Reviews</div>
-                        <div class="stat-value gold" id="count-agoda">0</div>
+            <section class="feed-container">
+                <div class="feed-header">
+                    <div class="panel-title"><i data-lucide="activity"></i> Intel Feed</div>
+                    <div class="search-box">
+                        <i data-lucide="search"></i>
+                        <input type="text" id="reviewSearch" placeholder="Search keywords...">
                     </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Last Scraped</div>
-                        <div class="stat-value" id="lastDate-agoda" style="font-size:0.85rem;">Never</div>
+                    <button class="scrape-btn" id="exportCsv" style="width: auto; padding: 0.5rem 1rem; font-size: 0.75rem;">Export CSV <i data-lucide="download"></i></button>
+                </div>
+                <!-- INNER SCROLL CONTAINER -->
+                <div class="reviews-list" id="reviewsList">
+                    <div class="panel" style="text-align: center; padding: 4rem; border: dashed 2px var(--border);">
+                        <i data-lucide="coffee" style="width:40px; color:var(--text-muted); margin-bottom:1rem;"></i>
+                        <p style="color:var(--text-dim);">No data selected.</p>
                     </div>
                 </div>
-                <div class="site-card-status" id="status-agoda">Ready to scrape</div>
-            </div>
+            </section>
 
-            <div class="site-card" data-site="expedia">
-                <div class="site-card-header">
-                    <span class="site-card-name">Expedia.com</span>
-                    <span class="site-card-badge idle" id="badge-expedia">IDLE</span>
+            <section id="hotelSettingsSection" class="panel" style="display: none; margin-top: 1rem;">
+                <div class="panel-header">
+                    <div class="panel-title"><i data-lucide="link-2"></i> URL Config</div>
+                    <button class="scrape-btn primary" id="btnSaveUrls" style="width: auto; padding: 0.5rem 1.25rem;">Sync URLs</button>
                 </div>
-                <div class="site-card-stats">
-                    <div class="stat-item">
-                        <div class="stat-label">Reviews</div>
-                        <div class="stat-value gold" id="count-expedia">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Last Scraped</div>
-                        <div class="stat-value" id="lastDate-expedia" style="font-size:0.85rem;">Never</div>
-                    </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+                    <div class="input-group"><label class="nav-label">Booking</label><input type="text" id="url-booking"></div>
+                    <div class="input-group"><label class="nav-label">Agoda</label><input type="text" id="url-agoda"></div>
+                    <div class="input-group"><label class="nav-label">Expedia</label><input type="text" id="url-expedia"></div>
+                    <div class="input-group"><label class="nav-label">Hotels</label><input type="text" id="url-hotels"></div>
+                    <div class="input-group"><label class="nav-label">Tripadvisor</label><input type="text" id="url-tripadvisor"></div>
                 </div>
-                <div class="site-card-status" id="status-expedia">Ready to scrape</div>
-            </div>
-
-            <div class="site-card" data-site="hotels">
-                <div class="site-card-header">
-                    <span class="site-card-name">Hotels.com</span>
-                    <span class="site-card-badge idle" id="badge-hotels">IDLE</span>
-                </div>
-                <div class="site-card-stats">
-                    <div class="stat-item">
-                        <div class="stat-label">Reviews</div>
-                        <div class="stat-value gold" id="count-hotels">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Last Scraped</div>
-                        <div class="stat-value" id="lastDate-hotels" style="font-size:0.85rem;">Never</div>
-                    </div>
-                </div>
-                <div class="site-card-status" id="status-hotels">Ready to scrape</div>
-            </div>
-
-            <div class="site-card" data-site="tripadvisor">
-                <div class="site-card-header">
-                    <span class="site-card-name">Tripadvisor.com</span>
-                    <span class="site-card-badge idle" id="badge-tripadvisor">IDLE</span>
-                </div>
-                <div class="site-card-stats">
-                    <div class="stat-item">
-                        <div class="stat-label">Reviews</div>
-                        <div class="stat-value gold" id="count-tripadvisor">0</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-label">Last Scraped</div>
-                        <div class="stat-value" id="lastDate-tripadvisor" style="font-size:0.85rem;">Never</div>
-                    </div>
-                </div>
-                <div class="site-card-status" id="status-tripadvisor">Ready to scrape</div>
-            </div>
-        </div>
-
-        <!-- ═══ LIVE REVIEWS FEED ═══ -->
-        <div class="reviews-panel">
-            <div class="reviews-header">
-                <div class="reviews-title">🔴 Live Review Feed</div>
-                <div class="reviews-filter">
-                    <span class="filter-chip active" data-filter="all">All</span>
-                    <span class="filter-chip" data-filter="booking">Booking</span>
-                    <span class="filter-chip" data-filter="agoda">Agoda</span>
-                    <span class="filter-chip" data-filter="expedia">Expedia</span>
-                    <span class="filter-chip" data-filter="hotels">Hotels</span>
-                    <span class="filter-chip" data-filter="tripadvisor">TripAdvisor</span>
-                </div>
-            </div>
-            <div id="reviewsList">
-                <div class="empty-state">
-                    <div class="icon">🏨</div>
-                    <p>Select sites and press <strong>START SCRAPING</strong> to begin collecting reviews.<br>
-                    Reviews will appear here in real-time.</p>
-                </div>
-            </div>
-        </div>
+            </section>
+        </main>
+        </main>
     </div>
 
     <script>
-        // ═══════════════════════════════════════════════════════════
-        //  STATE & ELEMENTS
-        // ═══════════════════════════════════════════════════════════
         const socket = io();
-        let reviewCount = 0;
-        let activeFilter = 'all';
+        let sessionNewCount = 0;
         let isRunning = false;
         let currentHotel = '';
+        let allReviews = [];
+        let chartInstance = null;
+        let allHotels = {};
 
-        const siteColors = {
-            booking: '#003580',
-            agoda: '#5542F6',
-            expedia: '#FBCF33',
-            hotels: '#D32F2F',
-            tripadvisor: '#00AF87',
-        };
-
-        const siteLabels = {
-            booking: 'Booking.com',
-            agoda: 'Agoda.com',
-            expedia: 'Expedia.com',
-            hotels: 'Hotels.com',
-            tripadvisor: 'Tripadvisor.com',
-        };
+        const siteColors = { booking:'#003580', agoda:'#5542f6', expedia:'#fbcb33', hotels:'#d32f2f', tripadvisor:'#34e0a1' };
+        const siteLabels = { booking:'Booking', agoda:'Agoda', expedia:'Expedia', hotels:'Hotels', tripadvisor:'Tripadvisor' };
 
         const $ = (sel) => document.querySelector(sel);
         const $$ = (sel) => document.querySelectorAll(sel);
 
-        // ═══════════════════════════════════════════════════════════
-        //  HOTEL SELECTOR LOGIC
-        // ═══════════════════════════════════════════════════════════
-        const hotelSelector = $('#hotelPresetSelector');
-        let allHotels = {};
-        
-        // Load hotel list from API
-        fetch('/api/hotels')
-            .then(res => res.json())
-            .then(hotels => {
-                allHotels = hotels;
-                Object.keys(hotels).forEach(hotel => {
-                    const opt = document.createElement('option');
-                    opt.value = hotel;
-                    opt.textContent = hotel;
-                    hotelSelector.appendChild(opt);
-                });
-            });
+        lucide.createIcons();
 
-        hotelSelector.addEventListener('change', (e) => {
-            const hotelName = e.target.value;
-            if (!hotelName) {
-                resetUI();
-                return;
-            }
-            $('#hotelSettingsSection').style.display = 'block';
-            populateUrlInputs(hotelName);
-            updateHotelContext(hotelName);
+        // Theme Toggle
+        let isDarkMode = false;
+        $('#themeToggle').addEventListener('click', () => {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode', isDarkMode);
+            $('#themeToggle').innerHTML = isDarkMode ? `<i data-lucide="moon"></i>` : `<i data-lucide="sun"></i>`;
+            lucide.createIcons();
+            if (chartInstance) renderChart(allReviews);
         });
 
-        function populateUrlInputs(hotelName) {
-            const urls = allHotels[hotelName] || {};
-            $('#url-booking').value = urls.booking || '';
-            $('#url-agoda').value = urls.agoda || '';
-            $('#url-expedia').value = urls.expedia || '';
-            $('#url-hotels').value = urls.hotels || '';
-            $('#url-tripadvisor').value = urls.tripadvisor || '';
-        }
-
-        $('#btnSaveUrls').addEventListener('click', async () => {
-            if (!currentHotel) return;
-            
-            const btn = $('#btnSaveUrls');
-            const originalText = btn.textContent;
-            btn.textContent = 'Saving...';
-            btn.disabled = true;
-
-            const updatedUrls = {
-                booking: $('#url-booking').value,
-                agoda: $('#url-agoda').value,
-                expedia: $('#url-expedia').value,
-                hotels: $('#url-hotels').value,
-                tripadvisor: $('#url-tripadvisor').value
-            };
-
+        // Hotel Management
+        async function loadHotels() {
             try {
-                const response = await fetch('/api/hotels/update', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ hotelName: currentHotel, urls: updatedUrls })
+                const res = await fetch('/api/hotels');
+                allHotels = await res.json();
+                const selector = $('#hotelPresetSelector');
+                const cur = selector.value;
+                selector.innerHTML = '<option value="">-- Select Property --</option>';
+                Object.keys(allHotels).sort().forEach(h => {
+                    const opt = document.createElement('option');
+                    opt.value = h; opt.textContent = h;
+                    if (h === cur) opt.selected = true;
+                    selector.appendChild(opt);
                 });
+            } catch (e) {}
+        }
+        loadHotels();
 
-                if (response.ok) {
-                    allHotels[currentHotel] = updatedUrls;
-                    btn.textContent = '✅ Saved!';
-                    setTimeout(() => {
-                        btn.textContent = originalText;
-                        btn.disabled = false;
-                    }, 2000);
-                } else {
-                    throw new Error('Save failed');
-                }
-            } catch (err) {
-                alert('Failed to save URLs: ' + err.message);
-                btn.textContent = originalText;
-                btn.disabled = false;
+        $('#hotelPresetSelector').addEventListener('change', (e) => {
+            const h = e.target.value;
+            if (!h) { resetUI(); return; }
+            $('#hotelSettingsSection').style.display = 'block';
+            $('#sidebarHistory').style.display = 'block';
+            syncContext(h);
+        });
+
+        const modal = $('#addHotelModal');
+        $('#openAddHotelModal').addEventListener('click', () => modal.style.display = 'grid');
+        $('#closeAddHotelModal').addEventListener('click', () => modal.style.display = 'none');
+        $('#saveNewHotel').addEventListener('click', async () => {
+            const name = $('#newHotelName').value.trim();
+            if (!name) return;
+            const res = await fetch('/api/hotels/add', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ hotelName: name }) });
+            if (res.ok) {
+                await loadHotels();
+                modal.style.display = 'none';
+                $('#hotelPresetSelector').value = name;
+                $('#hotelPresetSelector').dispatchEvent(new Event('change'));
             }
         });
 
-        function updateHotelContext(hotelName) {
-            currentHotel = hotelName;
-            $('#currentHotelName').textContent = hotelName;
-            $('#reviewsList').innerHTML = '';
+        async function syncContext(name) {
+            currentHotel = name;
+            const urls = allHotels[name] || {};
+            ['booking', 'agoda', 'expedia', 'hotels', 'tripadvisor'].forEach(s => $(`#url-${s}`).value = urls[s] || '');
             
-            // Show loading in site cards
-            $$('.site-card-badge').forEach(b => {
-                b.className = 'site-card-badge idle';
-                b.textContent = 'LOADING...';
-            });
-
-            // Request state for this hotel from socket
-            socket.emit('get_state', { hotelName });
-            
-            // Also fetch history sidebar info
-            fetch(`/api/state?hotel=${encodeURIComponent(hotelName)}`)
-                .then(r => r.json())
-                .then(state => updateStateUI(state));
+            $('#reviewsList').innerHTML = '<p style="text-align:center;padding:2rem;">Fetching Intelligence...</p>';
+            socket.emit('get_state', { hotelName: name });
+            const res = await fetch(`/api/all-reviews?hotel=${encodeURIComponent(name)}`);
+            allReviews = await res.json();
+            renderReviews(allReviews);
+            updateStats(allReviews);
+            renderChart(allReviews);
         }
 
         function resetUI() {
             currentHotel = '';
             $('#hotelSettingsSection').style.display = 'none';
-            $('#currentHotelName').textContent = 'Select a hotel to begin...';
-            $('#totalCount').textContent = '0';
-            $$('.stat-value').forEach(v => v.textContent = '0');
-            $$('.site-card-status').forEach(v => v.textContent = 'Ready to scrape');
-            $$('.site-card-badge').forEach(b => {
-                b.className = 'site-card-badge idle';
-                b.textContent = 'IDLE';
-            });
-            $('#lastScrapedInfo').textContent = 'Choose a hotel from the list above to see its scrape history.';
-            $('#reviewsList').innerHTML = `
-                <div class="empty-state">
-                    <div class="icon">🏨</div>
-                    <p>Select a hotel to view its reviews and scraping status.</p>
-                </div>
-            `;
+            $('#sidebarHistory').style.display = 'none';
+            $('#reviewsList').innerHTML = '<p style="text-align:center;padding:2rem;color:var(--text-muted);">No property active.</p>';
         }
 
-        // ═══════════════════════════════════════════════════════════
-        //  SITE SELECTOR CHIPS
-        // ═══════════════════════════════════════════════════════════
-        $$('.site-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                const cb = chip.querySelector('input');
-                cb.checked = !cb.checked;
-                chip.classList.toggle('selected', cb.checked);
-            });
+        // Search & Filter
+        $('#reviewSearch').addEventListener('input', (e) => {
+            const t = e.target.value.toLowerCase();
+            const f = allReviews.filter(r => (r.reviewerName||'').toLowerCase().includes(t) || (r.reviewText||'').toLowerCase().includes(t));
+            renderReviews(f);
         });
 
-        // ═══════════════════════════════════════════════════════════
-        //  FILTER CHIPS
-        // ═══════════════════════════════════════════════════════════
-        $$('.filter-chip').forEach(chip => {
-            chip.addEventListener('click', () => {
-                $$('.filter-chip').forEach(c => c.classList.remove('active'));
-                chip.classList.add('active');
-                activeFilter = chip.dataset.filter;
-                applyFilter();
+        function renderReviews(data) {
+            const list = $('#reviewsList');
+            if (!data.length) { list.innerHTML = '<p style="text-align:center;padding:2rem;">No data found.</p>'; return; }
+            list.innerHTML = '';
+            data.sort((a,b) => new Date(b.date||0) - new Date(a.date||0)).forEach(r => {
+                const div = document.createElement('div');
+                div.className = 'review-card';
+                div.innerHTML = `
+                    <div class="review-top">
+                        <div class="reviewer-info">
+                            <div class="avatar">${(r.reviewerName||'G')[0]}</div>
+                            <div class="name-meta"><h4>${r.reviewerName||'Guest'}</h4><span>${r.date||''}</span></div>
+                        </div>
+                        <div class="rating-badge">${r.rating||'--'}</div>
+                    </div>
+                    <div class="review-content"><p>${r.reviewText||'---'}</p></div>
+                    <div class="review-footer">
+                        <div class="site-tag" style="background:${siteColors[r.site]};color:white;">${r.site}</div>
+                    </div>
+                `;
+                list.appendChild(div);
             });
-        });
+            lucide.createIcons();
+        }
 
-        function applyFilter() {
-            $$('.review-card').forEach(card => {
-                if (activeFilter === 'all' || card.dataset.site === activeFilter) {
-                    card.style.display = '';
-                } else {
-                    card.style.display = 'none';
+        function updateStats(data) {
+            $('#totalCount').textContent = data.length;
+            const r = data.map(x => parseFloat(x.rating)).filter(n => !isNaN(n));
+            $('#avgRating').textContent = r.length ? (r.reduce((a,b)=>a+b,0)/r.length).toFixed(1) : '0.0';
+            $('#activeSitesCount').textContent = new Set(data.map(x => x.site)).size;
+        }
+
+        function renderChart(data) {
+            const c = $('#distributionChart'); if (!c) return;
+            const counts = { booking:0, agoda:0, expedia:0, hotels:0, tripadvisor:0 };
+            data.forEach(r => counts[r.site]++);
+            if (chartInstance) chartInstance.destroy();
+            chartInstance = new Chart(c.getContext('2d'), {
+                type: 'doughnut',
+                data: { labels: Object.values(siteLabels), datasets: [{ data: Object.values(counts), backgroundColor: Object.values(siteColors), borderWidth: 0 }] },
+                options: { 
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', labels: { color: isDarkMode ? '#fff' : '#666', font: { size: 10 } } } }
                 }
             });
         }
 
-        // ═══════════════════════════════════════════════════════════
-        //  START BUTTON
-        // ═══════════════════════════════════════════════════════════
-        function startScrape(mode) {
-            if (isRunning) return;
-            if (!currentHotel) {
-                alert('Please select a hotel first!');
-                return;
-            }
+        // Site Pills multi-select
+        $$('.site-pill').forEach(pill => {
+            pill.addEventListener('click', () => {
+                pill.classList.toggle('active');
+                const cb = pill.querySelector('input');
+                if (cb) cb.checked = pill.classList.contains('active');
+            });
+        });
 
-            const selectedSites = [];
-            $$('.site-chip input:checked').forEach(cb => selectedSites.push(cb.value));
-
-            if (selectedSites.length === 0) {
-                alert('Please select at least one site!');
-                return;
-            }
-
-            isRunning = true;
-            reviewCount = 0;
-            $('#totalCount').textContent = '0';
-            $('#reviewsList').innerHTML = '';
+        // Scrape Logic
+        function triggerScrape(mode) {
+            if (isRunning || !currentHotel) return;
+            const sites = []; 
+            $$('.site-pill.active').forEach(p => {
+                const val = p.querySelector('input')?.value || p.innerText.trim().toLowerCase();
+                sites.push(val);
+            });
+            if (!sites.length) return alert('Select at least one site');
             
-            const activeBtn = mode === 'all' ? $('#btnScrapeAll') : mode === 'new' ? $('#btnScrapeNew') : $('#btnScrapeCustom');
-            activeBtn.classList.add('running');
-            $$('.btn-start').forEach(b => b.disabled = true);
-            hotelSelector.disabled = true;
-
-            // Reset all site cards
-            selectedSites.forEach(site => {
-                updateBadge(site, 'running', 'RUNNING');
-                $(`#status-${site}`).innerHTML = '<div class="spinner-mini"></div> Initializing...';
-            });
-
-            socket.emit('start_scrape', {
-                hotelName: currentHotel,
-                sites: selectedSites,
-                mode: mode,
-                dateFrom: mode === 'custom' ? $('#dateFrom').value : null,
-                dateTo: mode === 'custom' ? $('#dateTo').value : null,
-            });
+            isRunning = true; sessionNewCount = 0;
+            const btn = mode === 'all' ? $('#btnScrapeAll') : $('#btnScrapeNew');
+            btn.classList.add('running');
+            socket.emit('start_scrape', { hotelName: currentHotel, sites, mode, dateFrom: $('#dateFrom').value, dateTo: $('#dateTo').value });
         }
-
-        $('#btnScrapeAll').addEventListener('click', () => startScrape('all'));
-        $('#btnScrapeNew').addEventListener('click', () => startScrape('new'));
-        $('#btnScrapeCustom').addEventListener('click', () => startScrape('custom'));
-
-        // ═══════════════════════════════════════════════════════════
-        //  SOCKET LISTENERS
-        // ═══════════════════════════════════════════════════════════
-
-        socket.on('scrape_state', (state) => {
-            updateStateUI(state);
-        });
-
-        socket.on('site_status', ({ site, msg }) => {
-            if (!site) return alert(msg); // Global error
-            const statusEl = $(`#status-${site}`);
-            if (statusEl) {
-                const isRunningMsg = msg.toLowerCase().includes('scraping') || msg.toLowerCase().includes('searching') || msg.toLowerCase().includes('navigating') || msg.toLowerCase().includes('starting');
-                statusEl.innerHTML = isRunningMsg
-                    ? `<div class="spinner-mini"></div> ${msg}`
-                    : msg;
-            }
-        });
-
-        socket.on('site_progress', ({ site, status, count, newCount, error }) => {
-            if (status === 'running') {
-                updateBadge(site, 'running', 'RUNNING');
-            } else if (status === 'done') {
-                updateBadge(site, 'done', 'DONE');
-                if (count !== undefined) $(`#count-${site}`).textContent = count;
-            } else if (status === 'error') {
-                updateBadge(site, 'error', 'ERROR');
-            }
-        });
+        $('#btnScrapeAll').addEventListener('click', () => triggerScrape('all'));
+        $('#btnScrapeNew').addEventListener('click', () => triggerScrape('new'));
 
         socket.on('new_review', ({ site, review }) => {
-            reviewCount++;
-            $('#totalCount').textContent = reviewCount;
-
-            const countEl = $(`#count-${site}`);
-            if (countEl) countEl.textContent = parseInt(countEl.textContent || 0) + 1;
-
-            const card = document.createElement('div');
-            card.className = 'review-card';
-            card.dataset.site = site;
-
-            if (activeFilter !== 'all' && activeFilter !== site) {
-                card.style.display = 'none';
-            }
-
-            card.innerHTML = `
-                <div class="review-card-top">
-                    <div class="review-card-left">
-                        <span class="review-site-dot" style="background:${siteColors[site]};"></span>
-                        <div>
-                            <div class="review-site-label">${siteLabels[site]}</div>
-                            <div class="review-reviewer">${escapeHtml(review.reviewerName || 'Anonymous')}</div>
-                            ${review.nationality ? `<div class="review-nationality">${escapeHtml(review.nationality)}</div>` : ''}
-                        </div>
-                    </div>
-                    <div class="review-rating">${escapeHtml(review.rating || 'N/A')}</div>
-                </div>
-                ${review.title ? `<div class="review-title-text">${escapeHtml(review.title)}</div>` : ''}
-                ${review.reviewText ? `<div class="review-body">${escapeHtml(review.reviewText)}</div>` : ''}
-                <div class="review-meta">
-                    ${review.date ? `<span>📅 ${escapeHtml(review.date)}</span>` : ''}
-                    ${review.roomType ? `<span>🛏️ ${escapeHtml(review.roomType)}</span>` : ''}
-                    ${review.tripType ? `<span>✈️ ${escapeHtml(review.tripType)}</span>` : ''}
-                </div>
-            `;
-
-            const list = $('#reviewsList');
-            const emptyState = list.querySelector('.empty-state');
-            if (emptyState) emptyState.remove();
-
-            list.insertBefore(card, list.firstChild);
+            sessionNewCount++; $('#growthCount').textContent = sessionNewCount;
+            review.site = site; allReviews.unshift(review);
+            renderReviews(allReviews); updateStats(allReviews);
         });
 
-        socket.on('all_done', (state) => {
-            isRunning = false;
-            $$('.btn-start').forEach(b => {
-                b.classList.remove('running');
-                b.disabled = false;
-            });
-            hotelSelector.disabled = false;
-            updateStateUI(state);
-        });
-
-        // ═══════════════════════════════════════════════════════════
-        //  UI HELPERS
-        // ═══════════════════════════════════════════════════════════
-        function updateBadge(site, status, text) {
-            const badge = $(`#badge-${site}`);
-            if (badge) {
-                badge.className = `site-card-badge ${status}`;
-                badge.textContent = text;
-            }
-        }
+        socket.on('all_done', (state) => { isRunning = false; updateStateUI(state); });
+        socket.on('scrape_state', (state) => updateStateUI(state));
 
         function updateStateUI(state) {
-            let totalReviews = 0;
-            let lastScrapedParts = [];
-
-            for (const [siteKey, info] of Object.entries(state)) {
-                if (!siteLabels[siteKey]) continue;
-
-                totalReviews += info.totalReviews || 0;
-                $(`#count-${siteKey}`).textContent = info.totalReviews || 0;
-
-                if (info.lastScrapedAt) {
-                    const d = new Date(info.lastScrapedAt);
-                    const formatted = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-                    $(`#lastDate-${siteKey}`).textContent = formatted;
-                    lastScrapedParts.push(`<strong>${info.siteName}</strong>: ${formatted} (${info.totalReviews} reviews, last review: ${info.lastReviewDate || 'N/A'})`);
-                }
-
-                if (!isRunning) {
-                    updateBadge(siteKey, info.totalReviews > 0 ? 'done' : 'idle', info.totalReviews > 0 ? 'DONE' : 'IDLE');
+            let h = [];
+            for (const [k, v] of Object.entries(state)) {
+                if (v.lastScrapedAt) {
+                    const d = new Date(v.lastScrapedAt).toLocaleTimeString();
+                    h.push(`<strong>${v.siteName}</strong>: ${d} (${v.totalReviews})`);
                 }
             }
-
-            $('#totalCount').textContent = totalReviews;
-
-            if (lastScrapedParts.length > 0) {
-                $('#lastScrapedInfo').innerHTML = lastScrapedParts.join('<br>');
-            } else if (currentHotel) {
-                $('#lastScrapedInfo').innerHTML = 'No scraping history yet. Start your first scrape!';
-            }
+            $('#lastScrapedInfo').innerHTML = h.join('<br>');
         }
-
-        function escapeHtml(str) {
-            if (!str) return '';
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
-        // Selection actions
-        $('#selectAll').addEventListener('click', () => {
-            $$('.site-chip').forEach(chip => {
-                chip.classList.add('selected');
-                chip.querySelector('input').checked = true;
-            });
-        });
-
-        $('#deselectAll').addEventListener('click', () => {
-            $$('.site-chip').forEach(chip => {
-                chip.classList.remove('selected');
-                chip.querySelector('input').checked = false;
-            });
-        });
     </script>
 </body>
 </html>

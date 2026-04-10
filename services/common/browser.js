@@ -2,7 +2,7 @@ import { chromium } from 'playwright';
 
 export async function newBrowser() {
     return chromium.launch({
-        headless: true,
+        headless: false,
         args: ['--no-sandbox', '--disable-blink-features=AutomationControlled'],
     });
 }

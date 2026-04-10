@@ -38,10 +38,29 @@ app.post('/api/hotels/update', (req, res) => {
     allUrls[hotelName] = urls;
 
     try {
-        fs.writeFileSync('./data/hotel_urls.json', JSON.stringify(allUrls, null, 2));
+        fs.writeFileSync(URLS_FILE, JSON.stringify(allUrls, null, 2));
         res.json({ success: true });
     } catch (err) {
         res.status(500).json({ error: 'Failed to save URLs' });
+    }
+});
+
+app.post('/api/hotels/add', (req, res) => {
+    const { hotelName } = req.body;
+    if (!hotelName) return res.status(400).json({ error: 'Missing hotelName' });
+
+    const allUrls = loadHotelUrls();
+    if (allUrls[hotelName]) return res.status(400).json({ error: 'Hotel already exists' });
+
+    allUrls[hotelName] = { 
+        booking: '', agoda: '', expedia: '', hotels: '', tripadvisor: '' 
+    };
+
+    try {
+        fs.writeFileSync(URLS_FILE, JSON.stringify(allUrls, null, 2));
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: 'Failed to create hotel' });
     }
 });
 
@@ -56,9 +75,10 @@ app.get('/api/reviews/:site', (req, res) => {
 
 app.get('/api/all-reviews', (req, res) => {
     const { hotel } = req.query;
-    const all = [];
+    let all = [];
     for (const k of Object.keys(SITE_CONFIGS)) {
-        all.push(...loadReviews(hotel, k));
+        const reviews = loadReviews(hotel, k).map(r => ({ ...r, site: k }));
+        all = all.concat(reviews);
     }
     res.json(all);
 });
@@ -139,24 +159,29 @@ server.listen(PORT, () => {
     console.log(`📂  Data saved to memory and local files`);
 
     // One-time startup cleanup logic for all hotels
-    const allUrls = loadHotelUrls();
-    Object.keys(allUrls).forEach(hotelName => {
-        Object.keys(SITE_CONFIGS).forEach(siteKey => {
-            const reviews = loadReviews(hotelName, siteKey);
-            if (reviews.length > 0) {
-                const getFprint = (r) => `${r.reviewerName}|${r.date}|${r.title}|${(r.reviewText || '').slice(0, 150)}`.toLowerCase().replace(/\s+/g, '');
-                const seen = new Set();
-                const clean = reviews.filter(r => {
-                    const fp = getFprint(r);
-                    if (seen.has(fp)) return false;
-                    seen.add(fp);
-                    return true;
-                });
-                if (clean.length !== reviews.length) {
-                    console.log(`[cleanup][${hotelName}] Removed ${reviews.length - clean.length} duplicates from ${SITE_CONFIGS[siteKey].name}`);
-                    saveReviews(hotelName, siteKey, clean);
+    try {
+        const allUrls = loadHotelUrls();
+        console.log(`🏨 [startup] Loaded ${Object.keys(allUrls).length} hotels from hotel_urls.json`);
+        Object.keys(allUrls).forEach(hotelName => {
+            Object.keys(SITE_CONFIGS).forEach(siteKey => {
+                const reviews = loadReviews(hotelName, siteKey);
+                if (reviews.length > 0) {
+                    const getFprint = (r) => `${r.reviewerName}|${r.date}|${r.title}|${(r.reviewText || '').slice(0, 150)}`.toLowerCase().replace(/\s+/g, '');
+                    const seen = new Set();
+                    const clean = reviews.filter(r => {
+                        const fp = getFprint(r);
+                        if (seen.has(fp)) return false;
+                        seen.add(fp);
+                        return true;
+                    });
+                    if (clean.length !== reviews.length) {
+                        console.log(`[cleanup][${hotelName}] Removed ${reviews.length - clean.length} duplicates from ${SITE_CONFIGS[siteKey].name}`);
+                        saveReviews(hotelName, siteKey, clean);
+                    }
                 }
-            }
+            });
         });
-    });
+    } catch (e) {
+        console.error('Error during startup cleanup:', e.message);
+    }
 });
