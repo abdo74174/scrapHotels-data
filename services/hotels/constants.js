@@ -1,5 +1,5 @@
 export const SELECTORS = {
-    CARDS: ['[itemprop="review"]', 'div[class*="ReviewItem"]'],
+    CARDS: ['[data-stid="reviews-list"] li', 'div[class*="review-"]'],
     REVIEWER_NAME: ['[itemprop="author"]', '[class*="userName"]'],
     DATE: ['[itemprop="datePublished"]', 'time'],
     RATING: ['[class*="ratingNumber"]'],

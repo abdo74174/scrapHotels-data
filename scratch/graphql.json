@@ -1,0 +1,509 @@
+[
+  {
+    "data": {
+      "productReviewDetails": {
+        "dialogToolbar": {
+          "title": "Reviews",
+          "analytics": {
+            "linkName": "reviews.closed",
+            "referrerId": "HOT.HIS.Reviews.CloseDialog",
+            "eventType": "CLICK",
+            "__typename": "ClientSideAnalytics"
+          },
+          "__typename": "ProductDialogToolbar"
+        },
+        "summary": {
+          "primary": "9.2/10 Wonderful",
+          "accessibilityLabel": "Overall guest review score",
+          "theme": "STRONG",
+          "__typename": "ProductRatingSummary",
+          "overallRating": [
+            {
+              "accessibility": "This property is rated 9.2 out of 10",
+              "decorative": null,
+              "size": "700",
+              "text": "9.2",
+              "theme": "POSITIVE",
+              "weight": "BOLD",
+              "__typename": "EGDSStylizedText"
+            },
+            {
+              "accessibility": null,
+              "decorative": null,
+              "size": "700",
+              "text": "/10",
+              "theme": "EMPHASIS",
+              "weight": "REGULAR",
+              "__typename": "EGDSStylizedText"
+            }
+          ],
+          "superlative": {
+            "accessibility": "Wonderful",
+            "decorative": null,
+            "size": "400",
+            "text": "Wonderful",
+            "theme": null,
+            "weight": "MEDIUM",
+            "__typename": "EGDSStylizedText"
+          }
+        },
+        "disclaimer": {
+          "title": {
+            "text": "430 verified reviews",
+            "weight": null,
+            "theme": null,
+            "accessibility": "430 verified reviews, more information",
+            "__typename": "EGDSStylizedText"
+          },
+          "complexTitle": null,
+          "tooltipContent": null,
+          "tooltipIcon": null,
+          "policyA11yText": null,
+          "icon": {
+            "description": "",
+            "id": "info_outline",
+            "token": "icon__info_outline",
+            "theme": null,
+            "size": null,
+            "__typename": "Icon"
+          },
+          "accessibilityText": null,
+          "iconTheme": "default",
+          "description": null,
+          "additionalDescriptions": null,
+          "message": {
+            "title": null,
+            "content": [
+              {
+                "text": "All reviews shown are from real guest experiences. Only travellers who have booked a stay with us can submit a review. We verify reviews according to our guidelines and publish all reviews, positive or negative.",
+                "style": "P1",
+                "__typename": "EGDSParagraph"
+              },
+              {
+                "action": {
+                  "accessibility": "Learn more, opens in a new window",
+                  "analytics": {
+                    "linkName": "Display more information",
+                    "referrerId": "HOT.HIS.Reviews.moreInfo",
+                    "__typename": "ClientSideAnalytics"
+                  },
+                  "resource": {
+                    "value": "https://www.hotels.com/lp/b/content-guidelines",
+                    "__typename": "HttpURI"
+                  },
+                  "target": "EXTERNAL",
+                  "__typename": "UILinkAction"
+                },
+                "disabled": false,
+                "linkSize": "MEDIUM",
+                "text": "Learn more",
+                "__typename": "EGDSInlineLink"
+              }
+            ],
+            "close": null,
+            "openAnalytics": {
+              "eventType": "CLICK",
+              "linkName": "Verified reviews definition",
+              "referrerId": "HOT.HIS.ReviewsOverlay.VerifiedReviews",
+              "__typename": "ClientSideAnalytics"
+            },
+            "__typename": "PopUpMessage"
+          },
+          "__typename": "ProductTextInfoSection"
+        },
+        "categories": {
+          "expando": {
+            "collapseAnalytics": {
+              "eventType": "CLICK",
+              "linkName": "Guest ratings see less",
+              "referrerId": "HOT.HIS.RatingCategories.SeeLess.Selected",
+              "__typename": "ClientSideAnalytics"
+            },
+            "collapsedAccessibilityText": "See less score categories",
+            "collapsedLabel": "See less",
+            "expandAnalytics": {
+              "eventType": "CLICK",
+              "linkName": "Guest ratings see more",
+              "referrerId": "HOT.HIS.RatingCategories.SeeMore.Selected",
+              "__typename": "ClientSideAnalytics"
+            },
+            "expanded": false,
+            "expandedAccessibilityText": "See more score categories",
+            "expandedLabel": "See more",
+            "items": 4,
+            "__typename": "EGDSExpandoPeek"
+          },
+          "accessibilityHeader": "Score categories",
+          "progressBarGroup": {
+            "progressBars": [
+              {
+                "accessibilityLabel": "Cleanliness, 9.6 out of 10",
+                "percent": 96,
+                "progressDescription": "9.6/10",
+                "title": "Cleanliness",
+                "__typename": "EGDSProgressBar"
+              },
+              {
+                "accessibilityLabel": "Staff & service, 9.4 out of 10",
+                "percent": 94,
+                "progressDescription": "9.4/10",
+                "title": "Staff & service",
+                "__typename": "EGDSProgressBar"
+              },
+              {
+                "accessibilityLabel": "Amenities, 9.2 out of 10",
+                "percent": 92,
+                "progressDescription": "9.2/10",
+                "title": "Amenities",
+                "__typename": "EGDSProgressBar"
+              },
+              {
+                "accessibilityLabel": "Property conditions & facilities, 9.2 out of 10",
+                "percent": 92,
+                "progressDescription": "9.2/10",
+                "title": "Property conditions & facilities",
+                "__typename": "EGDSProgressBar"
+              },
+              {
+                "accessibilityLabel": "Location, 8.6 out of 10",
+                "percent": 86,
+                "progressDescription": "8.6/10",
+                "title": "Location",
+                "__typename": "EGDSProgressBar"
+              }
+            ],
+            "__typename": "EGDSProgressBarGroup"
+          },
+          "reviewCategory": {
+            "heading": {
+              "accessibility": "Score categories",
+              "decorative": null,
+              "size": null,
+              "text": "Score categories",
+              "theme": null,
+              "weight": null,
+              "__typename": "EGDSStylizedText"
+            },
+            "categories": [
+              {
+                "accessibility": "Cleanliness, 9.6 out of 10",
+                "categoryScore": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "400",
+                  "text": "9.6",
+                  "theme": null,
+                  "weight": "MEDIUM",
+                  "__typename": "EGDSStylizedText"
+                },
+                "categoryType": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "200",
+                  "text": "Cleanliness",
+                  "theme": null,
+                  "weight": "REGULAR",
+                  "__typename": "EGDSStylizedText"
+                },
+                "__typename": "ReviewCategory"
+              },
+              {
+                "accessibility": "Staff & service, 9.4 out of 10",
+                "categoryScore": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "400",
+                  "text": "9.4",
+                  "theme": null,
+                  "weight": "MEDIUM",
+                  "__typename": "EGDSStylizedText"
+                },
+                "categoryType": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "200",
+                  "text": "Staff & service",
+                  "theme": null,
+                  "weight": "REGULAR",
+                  "__typename": "EGDSStylizedText"
+                },
+                "__typename": "ReviewCategory"
+              },
+              {
+                "accessibility": "Amenities, 9.2 out of 10",
+                "categoryScore": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "400",
+                  "text": "9.2",
+                  "theme": null,
+                  "weight": "MEDIUM",
+                  "__typename": "EGDSStylizedText"
+                },
+                "categoryType": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "200",
+                  "text": "Amenities",
+                  "theme": null,
+                  "weight": "REGULAR",
+                  "__typename": "EGDSStylizedText"
+                },
+                "__typename": "ReviewCategory"
+              },
+              {
+                "accessibility": "Property conditions & facilities, 9.2 out of 10",
+                "categoryScore": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "400",
+                  "text": "9.2",
+                  "theme": null,
+                  "weight": "MEDIUM",
+                  "__typename": "EGDSStylizedText"
+                },
+                "categoryType": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "200",
+                  "text": "Property conditions & facilities",
+                  "theme": null,
+                  "weight": "REGULAR",
+                  "__typename": "EGDSStylizedText"
+                },
+                "__typename": "ReviewCategory"
+              },
+              {
+                "accessibility": "Location, 8.6 out of 10",
+                "categoryScore": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "400",
+                  "text": "8.6",
+                  "theme": null,
+                  "weight": "MEDIUM",
+                  "__typename": "EGDSStylizedText"
+                },
+                "categoryType": {
+                  "accessibility": null,
+                  "decorative": null,
+                  "size": "200",
+                  "text": "Location",
+                  "theme": null,
+                  "weight": "REGULAR",
+                  "__typename": "EGDSStylizedText"
+                },
+                "__typename": "ReviewCategory"
+              }
+            ],
+            "__typename": "ReviewsCategorySection"
+          },
+          "__typename": "ProductContainerSection"
+        },
+        "images": null,
+        "reviewSummary": null,
+        "tnlFields": null,
+        "reviews": {
+          "seeAllReviewsButton": {
+            "primary": "See all 430 reviews",
+            "accessibility": "See all 430 reviews",
+            "analytics": {
+              "linkName": "See All Reviews",
+              "referrerId": "HOT.HIS.Reviews.ClickSeeAllReviewsToOpenDialog",
+              "eventType": "CLICK",
+              "__typename": "ClientSideAnalytics"
+            },
+            "__typename": "UISecondaryButton"
+          },
+          "__typename": "ProductReviews"
+        },
+        "__typename": "ProductReviewDetails"
+      }
+    },
+    "extensions": {
+      "analytics": [
+        {
+          "traceId": "b5232b0b-c402-4da2-9d09-067f44fb37d5",
+          "creationTimestamp": 1775864429853,
+          "context": {
+            "pageIdentity": {
+              "lineOfBusiness": "H",
+              "pageIdentifier": "page.Hotels.Infosite.Information.Dateless",
+              "funnelLocation": 30
+            },
+            "executeXdid": true,
+            "tealiumAccountDetailsPWA": {
+              "tealiumAccountName": "TEALIUM_OFF",
+              "tealiumProfileName": "TEALIUM_OFF"
+            },
+            "beaconOffConfig": {
+              "settings": {
+                "adobeSuiteAccount": "expediaglobaluserdev",
+                "sendToAdobeClientSide": false,
+                "sendToAdobeServerSide": false,
+                "sendToS3": false,
+                "adobeSuiteUrl": "http://expedia.112.2o7.net/b/ss/expediaglobaluserdev/6"
+              },
+              "rulesMatched": "ALL_BEACON_OFF",
+              "bucketing": {
+                "experimentInstance": "",
+                "bucketValue": 2,
+                "experimentId": ""
+              },
+              "error": ""
+            },
+            "tealiumAccountDetails": {
+              "tealiumAccountName": "TEALIUM_OFF",
+              "tealiumProfileName": "TEALIUM_OFF"
+            },
+            "entryPageView": false,
+            "beaconEnabled": true,
+            "newVisit": false
+          },
+          "tealiumUtagData": {
+            "lineOfBusiness": "hotels",
+            "siteCountryCode": "AE",
+            "tpid": 3100,
+            "pageInfo": {
+              "lineOfBusiness": "hotels",
+              "requestURL": "http://www.hotels.com/graphql",
+              "funnelLocation": "DETAILS",
+              "currency": "USD",
+              "language": "en",
+              "pageName": "page.Hotels.Infosite.Information.Dateless",
+              "xLineOfBusiness": "HOTEL"
+            },
+            "tc_vars": {
+              "privacy_gdpr_consent": true,
+              "identifiers_session_id": "60a836c7-5c36-3aee-b8cf-6c7df958fac1",
+              "point_of_sale_eg_pos_id": "HCOM_AE",
+              "marketing_sslt_attributed_marketing_code": "DIRECT.WEB_NULL_REFERRAL",
+              "language": "en",
+              "search_request_gaia_id": "Unknown",
+              "point_of_sale_eg_brand_name": "hotels",
+              "device_information_device_type": "DESKTOP",
+              "identifiers_tpid": 3100,
+              "timestamps_received_at": "2026-04-10T23:40:29.640807533Z",
+              "identifiers_site_id": 310000033,
+              "host": "www.hotels.com",
+              "point_of_sale": "Unknown",
+              "is_native_app": false,
+              "is_EU_POS": false,
+              "event_page_name_detailed": "page.Hotels.Infosite.Information.Dateless",
+              "default_domain": "www.hotels.com",
+              "point_of_sale_site_currency_code": "USD",
+              "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+              "privacy_ccpa_consent": true,
+              "identifiers_device_user_agent_id": "bdc732d2-62fc-452c-9079-76f6f40d32e2",
+              "marketing_sslt_attributed_platform_entryId": "d43b619a-2ae6-4760-bb8f-641f4e788942",
+              "isNativeOneCKO": false,
+              "point_of_sale_locale": "AE",
+              "identifiers_event_trace_id": "b5232b0bc4024da29d09067f44fb37d5",
+              "event_page_funnel_location": "DETAILS",
+              "referrer_url_encoded": "https%3A%2F%2Fwww.hotels.com%2Fho234548%2Ffour-seasons-hotel-cairo-at-nile-plaza-cairo-egypt%2F%3Flocale%3Den_GB%26siteid%3D310000033%26pwaDialog%3Dproduct-reviews",
+              "booking_product_line": "H",
+              "marketing_same_session_marketing_code": "direct",
+              "marketing_latest_marketing_code": "DIRECT.WEB_NULL_REFERRAL",
+              "event_page_product_line": "HOTEL",
+              "request_request_url": "http://www.hotels.com/graphql",
+              "environment": "prod",
+              "line_of_business": "hotels",
+              "is_native_app_onecheckout": false,
+              "event_page_name": "page.Hotels.Infosite.Information.Dateless",
+              "domain": "HOTEL",
+              "marketing_latest_platform_entry_id": "d43b619a-2ae6-4760-bb8f-641f4e788942",
+              "referrer_url": "https://www.hotels.com/ho234548/four-seasons-hotel-cairo-at-nile-plaza-cairo-egypt/?locale=en_GB&siteid=310000033&pwaDialog=product-reviews"
+            },
+            "siteName": "www.hotels.com",
+            "language": "en",
+            "locale": "en_GB",
+            "pageName": "page.Hotels.Infosite.Information.Dateless",
+            "xLineOfBusiness": "HOTEL",
+            "Geo": {
+              "country": "EG",
+              "city": "CAIRO",
+              "latitude": 30.0507,
+              "state": "C",
+              "longitude": 31.2489
+            },
+            "eapid": 33,
+            "domain": "HOTEL",
+            "funnelLocation": "DETAILS",
+            "context": {
+              "traceId": "b5232b0bc4024da29d09067f44fb37d5",
+              "site": {
+                "companyCode": "10113",
+                "tpid": 3100,
+                "eapid": 33,
+                "brandId": "hotels",
+                "siteId": 310000033,
+                "siteName": "www.hotels.com",
+                "jurisdictionCode": "ARE",
+                "managementUnitCode": "2086",
+                "defaultCountry": "AE"
+              },
+              "privacyContext": {
+                "canTrack": true,
+                "canSell": true,
+                "optInPrivacySelection": {
+                  "yesSelected": false,
+                  "isSet": false
+                },
+                "dataProtectionGuideline": "GDPR"
+              },
+              "requestId": "b5232b0b-c402-4da2-9d09-067f44fb37d5",
+              "hopScotchSessionId": "60a836c7-5c36-3aee-b8cf-6c7df958fac1",
+              "clientInfo": {
+                "deviceCharacteristics": {
+                  "brandName": "Chrome",
+                  "deviceOs": "Windows NT",
+                  "mobileBrowserVersion": "147",
+                  "resolutionHeight": 800,
+                  "mobile": false,
+                  "deviceOsVersion": "10.0",
+                  "mobileBrowser": "Chrome",
+                  "physicalScreenHeight": 175,
+                  "modelName": "147",
+                  "tablet": false,
+                  "resolutionWidth": 1280,
+                  "wirelessDevice": false,
+                  "physicalScreenWidth": 280
+                },
+                "os": "Windows NT",
+                "ipAddress": "154.239.201.***",
+                "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+                "ua": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/147.0.0.0 Safari/537.36",
+                "requestMadeByBot": false,
+                "coords": {
+                  "country": "EG",
+                  "city": "CAIRO",
+                  "latitude": 30.0507,
+                  "state": "C",
+                  "longitude": 31.2489
+                }
+              },
+              "sessionId": "60a836c7-5c36-3aee-b8cf-6c7df958fac1",
+              "user": {
+                "guid": "bdc732d2-62fc-452c-9079-76f6f40d32e2"
+              }
+            },
+            "siteId": 310000033,
+            "guid": "bdc732d2-62fc-452c-9079-76f6f40d32e2",
+            "tc_context": {
+              "tcContainerUrl": "https://cdn.tagcommander.com/6035/tc_hcom_prod.js",
+              "enabled": true
+            },
+            "brand": "hotels",
+            "currencyCode": "USD",
+            "lobDomain": "HOTEL"
+          },
+          "version": "9.1.6",
+          "applicationName": "product-details-experience-api"
+        }
+      ],
+      "trace": {
+        "Trace-ID": "b5232b0b-c402-4da2-9d09-067f44fb37d5"
+      }
+    }
+  }
+]

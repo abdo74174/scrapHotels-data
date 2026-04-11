@@ -1,0 +1,1031 @@
+[
+  {
+    "data": {
+      "userTrackingService__addEvents": [
+        {
+          "errorMessage": null,
+          "eventId": null
+        }
+      ]
+    },
+    "extensions": {
+      "mutatedFields": [
+        "userTrackingService__addEvents"
+      ]
+    }
+  },
+  {
+    "data": {
+      "AbTesting_evaluateTests": [
+        {
+          "testResults": [
+            {
+              "experimentKey": "trips_maintenance_mode_1720457608",
+              "bucket": null
+            },
+            {
+              "experimentKey": "trips_maintenance_mode_gai_1723822196",
+              "bucket": null
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "locations": [
+        {
+          "locationTimezoneId": "Africa/Cairo"
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "businessAdvantageData": [
+        null
+      ]
+    }
+  },
+  {
+    "data": {
+      "ReviewsProxy_getReviewListPageForLocation": [
+        {
+          "reviews": [
+            {
+              "id": 1055287556,
+              "helpfulVotes": 1,
+              "rating": 5,
+              "title": "Highest quality",
+              "text": "Hotel where people have thought of everything. The complete picture is correct to small details such as shoehorns, slippers,..... We stayed in the Corniche suite. Spacious room with views of the Nile. Soundproofed rooms. Nicely finished. The staff is very friendly and helpful. We also ate at restaurant 8, the Lebanese restaurant and the Italian restaurant. All 3 good of its kind. Breakfast is provided with all options. In short, highly recommended.",
+              "status": "PUBLISHED",
+              "tripInfo": {
+                "stayDate": "2026-04-30",
+                "tripType": "COUPLES"
+              },
+              "location": {
+                "name": "Four Seasons Hotel Cairo at Nile Plaza",
+                "locationId": 308077,
+                "parentGeoId": 294201,
+                "absoluteUrl": "https://www.tripadvisor.com/Hotel_Review-g294201-d308077-Reviews-Four_Seasons_Hotel_Cairo_at_Nile_Plaza-Cairo_Cairo_Governorate.html"
+              },
+              "locationId": 308077,
+              "publishedDate": "2026-04-03",
+              "ownerResponseId": null,
+              "ownerResponse": null,
+              "photos": [
+                {
+                  "__typename": "ReviewsProxy_ProxyReviewPhotos",
+                  "id": 853266806
+                },
+                {
+                  "__typename": "ReviewsProxy_ProxyReviewPhotos",
+                  "id": 853266805
+                },
+                {
+                  "__typename": "ReviewsProxy_ProxyReviewPhotos",
+                  "id": 853266804
+                },
+                {
+                  "__typename": "ReviewsProxy_ProxyReviewPhotos",
+                  "id": 853266803
+                },
+                {
+                  "__typename": "ReviewsProxy_ProxyReviewPhotos",
+                  "id": 853266802
+                }
+              ],
+              "userId": "8C654491A9FB72DCEBEFD458B6CF41A9",
+              "userProfile": {
+                "route": {
+                  "url": "/Profile/KimV2930"
+                },
+                "contributionCounts": {
+                  "sumAllUgc": 246
+                },
+                "userId": "8C654491A9FB72DCEBEFD458B6CF41A9",
+                "displayName": "Kim V",
+                "avatar": {
+                  "__typename": "MemberProfile_MediaId",
+                  "data": {
+                    "__typename": "Media_PhotoResult",
+                    "statuses": [
+                      "PUBLISHED"
+                    ],
+                    "sizes": [
+                      {
+                        "height": 0,
+                        "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/24/e9/3a/5d/kimv2930.jpg?w=100&h=100&s=1",
+                        "width": 0
+                      },
+                      {
+                        "height": 50,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-t/24/e9/3a/5d/kimv2930.jpg",
+                        "width": 50
+                      },
+                      {
+                        "height": 150,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-l/24/e9/3a/5d/kimv2930.jpg",
+                        "width": 150
+                      },
+                      {
+                        "height": 200,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-i/24/e9/3a/5d/kimv2930.jpg",
+                        "width": 180
+                      },
+                      {
+                        "height": 205,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-f/24/e9/3a/5d/kimv2930.jpg",
+                        "width": 205
+                      },
+                      {
+                        "height": 450,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-s/24/e9/3a/5d/kimv2930.jpg",
+                        "width": 450
+                      },
+                      {
+                        "height": 550,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-p/24/e9/3a/5d/kimv2930.jpg",
+                        "width": 550
+                      },
+                      {
+                        "height": 1024,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-w/24/e9/3a/5d/kimv2930.jpg",
+                        "width": 1024
+                      },
+                      {
+                        "height": 1280,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-m/1280/24/e9/3a/5d/kimv2930.jpg",
+                        "width": 1280
+                      }
+                    ],
+                    "id": 619264605
+                  }
+                },
+                "hometown": {
+                  "locationId": 3492216,
+                  "fallbackString": "3492216",
+                  "location": {
+                    "additionalNames": {
+                      "long": "Beerse, Belgium"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "id": 1054190673,
+              "helpfulVotes": 1,
+              "rating": 5,
+              "title": "Absolute comfort",
+              "text": "My review can only be excellent as this hotel met all our expectations. A geographical position overlooking the Nile , a reception hall and elegant bouquets that set the tone and sense of security felt as soon as the front door is passed. The welcome was very charming and very professional. The staff in all departments is of great discretion while being very efficient. We were lucky enough to be upgraded and our room had become a haven when we returned from our visiting days.\nEverything is well thought out and available, whether it be the spa , the pool or the restaurants, always the same charming welcome and this great professionalism.\nThe rooms are extremely comfortable , spacious , elegant, with a large and functional bathroom. Cleanliness reigns everywhere and the absolutely complete and tasty breakfasts let you glimpse what the restaurant will be like.\nWe dined several times at the Italian restaurant, and it was delicious. \nA special mention to the front desk supervisor who greatly contributed to making our stay most enjoyable.\nA hotel to recommend",
+              "status": "PUBLISHED",
+              "tripInfo": {
+                "stayDate": "2026-03-31",
+                "tripType": "COUPLES"
+              },
+              "location": {
+                "name": "Four Seasons Hotel Cairo at Nile Plaza",
+                "locationId": 308077,
+                "parentGeoId": 294201,
+                "absoluteUrl": "https://www.tripadvisor.com/Hotel_Review-g294201-d308077-Reviews-Four_Seasons_Hotel_Cairo_at_Nile_Plaza-Cairo_Cairo_Governorate.html"
+              },
+              "locationId": 308077,
+              "publishedDate": "2026-03-25",
+              "ownerResponseId": null,
+              "ownerResponse": null,
+              "photos": [],
+              "userId": "91185E93FF99CDA5D3BC787B1AF42F87",
+              "userProfile": {
+                "route": {
+                  "url": "/Profile/Namikidori"
+                },
+                "contributionCounts": {
+                  "sumAllUgc": 278
+                },
+                "userId": "91185E93FF99CDA5D3BC787B1AF42F87",
+                "displayName": "Namikidori",
+                "avatar": {
+                  "__typename": "MemberProfile_MediaId",
+                  "data": {
+                    "__typename": "Media_PhotoResult",
+                    "statuses": [
+                      "PUBLISHED"
+                    ],
+                    "sizes": [
+                      {
+                        "height": 0,
+                        "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/08/11/95/c3/namikidori.jpg?w=100&h=100&s=1",
+                        "width": 0
+                      },
+                      {
+                        "height": 50,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-t/08/11/95/c3/namikidori.jpg",
+                        "width": 50
+                      },
+                      {
+                        "height": 150,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-l/08/11/95/c3/namikidori.jpg",
+                        "width": 150
+                      },
+                      {
+                        "height": 205,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-f/08/11/95/c3/namikidori.jpg",
+                        "width": 205
+                      },
+                      {
+                        "height": 450,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-s/08/11/95/c3/namikidori.jpg",
+                        "width": 450
+                      },
+                      {
+                        "height": 550,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-p/08/11/95/c3/namikidori.jpg",
+                        "width": 550
+                      },
+                      {
+                        "height": 576,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-o/08/11/95/c3/namikidori.jpg",
+                        "width": 576
+                      }
+                    ],
+                    "id": 135370179
+                  }
+                },
+                "hometown": {
+                  "locationId": null,
+                  "fallbackString": "Le Cannet, France",
+                  "location": null
+                }
+              }
+            },
+            {
+              "id": 1052677975,
+              "helpfulVotes": 1,
+              "rating": 5,
+              "title": "Four Seasons Nile Plaza , Cairo, Egypt and  Mr. Kamal Walid",
+              "text": "After a full day at the Egyptian  Museum we stopped into the Four  Seasons hoping to find a table for dinner. We met Mr. Kamal Walid at the Concierge Desk who accompanied my wife and I to several of the hotels' restaurants  searching for a table until he could finally procure us a table at the poolside restaurant and bar where we enjoyed a lovely meal and service.  \nOur experience was incredible because of Mr. Walid.  He is an astounding gentleman and representative o The Four Seasons, a true asset to the hotel.  Because of him we would book our next stay in Cairo at The Four Seasons.",
+              "status": "PUBLISHED",
+              "tripInfo": {
+                "stayDate": "2026-03-31",
+                "tripType": "FAMILY"
+              },
+              "location": {
+                "name": "Four Seasons Hotel Cairo at Nile Plaza",
+                "locationId": 308077,
+                "parentGeoId": 294201,
+                "absoluteUrl": "https://www.tripadvisor.com/Hotel_Review-g294201-d308077-Reviews-Four_Seasons_Hotel_Cairo_at_Nile_Plaza-Cairo_Cairo_Governorate.html"
+              },
+              "locationId": 308077,
+              "publishedDate": "2026-03-11",
+              "ownerResponseId": 1053057485,
+              "ownerResponse": {
+                "id": 1053057485,
+                "text": "Dear Sharon, \n\nThank you for sharing such a wonderful account of your visit. It truly warms our hearts to know that your evening after the Egyptian Museum became even more memorable.\nMr. Walid embodies the spirit of genuine care that guides everything we do, and your kind words will mean so much to him. We’re delighted that he was able to accompany you personally and ensure you found the perfect spot to enjoy your dinner by the pool. Moments like these are exactly what we hope to create for every guest who walks through our doors.\nWe would be honored to welcome you for a future stay, and we look forward to the opportunity to craft even more special experiences during your next visit to Cairo.\n\nKind regards,\nYves Giacometti\nRegional Vice President and General Manager\nFour Seasons Hotel Cairo at Nile Plaza",
+                "publishedDate": "2026-03-15",
+                "userId": "899A6C25D9A89BF78DCEB776F45CC1B3",
+                "userProfile": {
+                  "route": {
+                    "url": "/Profile/646nesmag"
+                  },
+                  "displayName": "Four Seasons C",
+                  "avatar": {
+                    "__typename": "MemberProfile_MediaId",
+                    "data": {
+                      "__typename": "Media_PhotoResult",
+                      "statuses": [
+                        "PUBLISHED"
+                      ],
+                      "sizes": [
+                        {
+                          "height": 0,
+                          "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/f6/f4/20/default-avatar-2020-31.jpg?w=100&h=100&s=1",
+                          "width": 0
+                        },
+                        {
+                          "height": 50,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-t/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 50
+                        },
+                        {
+                          "height": 150,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 150
+                        },
+                        {
+                          "height": 200,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-i/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 180
+                        },
+                        {
+                          "height": 205,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-f/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 205
+                        },
+                        {
+                          "height": 450,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-s/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 450
+                        },
+                        {
+                          "height": 550,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-p/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 550
+                        },
+                        {
+                          "height": 1024,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-w/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 1024
+                        },
+                        {
+                          "height": 1200,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-o/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 1200
+                        }
+                      ],
+                      "id": 452391968
+                    }
+                  }
+                }
+              },
+              "photos": [],
+              "userId": "B92798B691905E8316F7EF2BB984729B",
+              "userProfile": {
+                "route": {
+                  "url": "/Profile/sharonr607"
+                },
+                "contributionCounts": {
+                  "sumAllUgc": 102
+                },
+                "userId": "B92798B691905E8316F7EF2BB984729B",
+                "displayName": "Sharon R",
+                "avatar": {
+                  "__typename": "MemberProfile_MediaId",
+                  "data": {
+                    "__typename": "Media_PhotoResult",
+                    "statuses": [
+                      "PUBLISHED"
+                    ],
+                    "sizes": [
+                      {
+                        "height": 0,
+                        "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/f6/f3/e4/default-avatar-2020-30.jpg?w=100&h=100&s=1",
+                        "width": 0
+                      },
+                      {
+                        "height": 50,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-t/1a/f6/f3/e4/default-avatar-2020-30.jpg",
+                        "width": 50
+                      },
+                      {
+                        "height": 150,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f3/e4/default-avatar-2020-30.jpg",
+                        "width": 150
+                      },
+                      {
+                        "height": 200,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-i/1a/f6/f3/e4/default-avatar-2020-30.jpg",
+                        "width": 180
+                      },
+                      {
+                        "height": 205,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-f/1a/f6/f3/e4/default-avatar-2020-30.jpg",
+                        "width": 205
+                      },
+                      {
+                        "height": 450,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-s/1a/f6/f3/e4/default-avatar-2020-30.jpg",
+                        "width": 450
+                      },
+                      {
+                        "height": 550,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-p/1a/f6/f3/e4/default-avatar-2020-30.jpg",
+                        "width": 550
+                      },
+                      {
+                        "height": 1024,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-w/1a/f6/f3/e4/default-avatar-2020-30.jpg",
+                        "width": 1024
+                      },
+                      {
+                        "height": 1200,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-o/1a/f6/f3/e4/default-avatar-2020-30.jpg",
+                        "width": 1200
+                      }
+                    ],
+                    "id": 452391908
+                  }
+                },
+                "hometown": {
+                  "locationId": 44551,
+                  "fallbackString": "44551",
+                  "location": {
+                    "additionalNames": {
+                      "long": "Kirkwood, Missouri"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "id": 1052152976,
+              "helpfulVotes": 1,
+              "rating": 5,
+              "title": "Expectations Met, But Underwhelmed",
+              "text": "This 4S is probably not as nice as many, but it’s still the gold standard in Cairo. We had a premium Nile view king for four nights and it was fine. Only complaint is a lack of horizontal space in the room—no place to put packing cubes, etc. Great location. Nice breakfast. Ate at the Italian resto on Valentines Day. There was a set menu which was a bit too much. Also ate at “8” the Asian-themed resto. Food was good, but service seemed a bit confused. Lobby bar is very nice, as is the bar above the pool area. Beware though . . . Cocktails and imported wine are extremely expensive. All-in-all a pleasant stay, if a bit underwhelming.",
+              "status": "PUBLISHED",
+              "tripInfo": {
+                "stayDate": "2026-02-28",
+                "tripType": "COUPLES"
+              },
+              "location": {
+                "name": "Four Seasons Hotel Cairo at Nile Plaza",
+                "locationId": 308077,
+                "parentGeoId": 294201,
+                "absoluteUrl": "https://www.tripadvisor.com/Hotel_Review-g294201-d308077-Reviews-Four_Seasons_Hotel_Cairo_at_Nile_Plaza-Cairo_Cairo_Governorate.html"
+              },
+              "locationId": 308077,
+              "publishedDate": "2026-03-06",
+              "ownerResponseId": 1053057920,
+              "ownerResponse": {
+                "id": 1053057920,
+                "text": "Dear Giddypam, \n\nThank you for taking the time to share such a thoughtful and detailed review of your recent stay with us. While I’m glad to know that you enjoyed our central location, Nile views, breakfast offering, and the atmosphere of our lounges, I’m truly sorry to learn that certain elements of your visit fell short of the seamless experience we strive to deliver.\n\nYour comments regarding the layout and available space in your guest room are very helpful, and I appreciate you bringing this to our attention. We continuously review our accommodations to ensure they are as comfortable and functional as possible, and your feedback will certainly be considered in our ongoing improvements.\n\nI am also grateful for your notes on the dining experiences, from the set Valentine’s Day menu to the service at 8 Restaurant. While I’m pleased to hear you enjoyed the cuisine, I regret that the service felt anything less than intuitive. This is not reflective of the standard we aim to provide, and I will be reviewing your impressions with our restaurant teams to ensure greater consistency and clarity.\n\nRegarding pricing of imported beverages, I understand how this may have impacted your impression. We do our best to balance quality, availability, and guest experience, and your perspective is invaluable as we assess these offerings.\n\nThank you once again for your honest insight. I’m pleased that your stay was pleasant overall, but I sincerely hope we have the opportunity to welcome you back and deliver a visit that feels truly exceptional in every way.\n\nKind regards,\nYves Giacometti\nRegional Vice President and General Manager\nFour Seasons Hotel Cairo at Nile Plaza",
+                "publishedDate": "2026-03-15",
+                "userId": "899A6C25D9A89BF78DCEB776F45CC1B3",
+                "userProfile": {
+                  "route": {
+                    "url": "/Profile/646nesmag"
+                  },
+                  "displayName": "Four Seasons C",
+                  "avatar": {
+                    "__typename": "MemberProfile_MediaId",
+                    "data": {
+                      "__typename": "Media_PhotoResult",
+                      "statuses": [
+                        "PUBLISHED"
+                      ],
+                      "sizes": [
+                        {
+                          "height": 0,
+                          "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/f6/f4/20/default-avatar-2020-31.jpg?w=100&h=100&s=1",
+                          "width": 0
+                        },
+                        {
+                          "height": 50,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-t/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 50
+                        },
+                        {
+                          "height": 150,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 150
+                        },
+                        {
+                          "height": 200,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-i/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 180
+                        },
+                        {
+                          "height": 205,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-f/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 205
+                        },
+                        {
+                          "height": 450,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-s/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 450
+                        },
+                        {
+                          "height": 550,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-p/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 550
+                        },
+                        {
+                          "height": 1024,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-w/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 1024
+                        },
+                        {
+                          "height": 1200,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-o/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 1200
+                        }
+                      ],
+                      "id": 452391968
+                    }
+                  }
+                }
+              },
+              "photos": [],
+              "userId": "3F127A43EC9AF5B75B6AA6D2026FF64A",
+              "userProfile": {
+                "route": {
+                  "url": "/Profile/giddypam"
+                },
+                "contributionCounts": {
+                  "sumAllUgc": 62
+                },
+                "userId": "3F127A43EC9AF5B75B6AA6D2026FF64A",
+                "displayName": "giddypam",
+                "avatar": {
+                  "__typename": "MemberProfile_MediaId",
+                  "data": {
+                    "__typename": "Media_PhotoResult",
+                    "statuses": [
+                      "PUBLISHED"
+                    ],
+                    "sizes": [
+                      {
+                        "height": 0,
+                        "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/f6/f1/b8/default-avatar-2020-22.jpg?w=100&h=100&s=1",
+                        "width": 0
+                      },
+                      {
+                        "height": 50,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-t/1a/f6/f1/b8/default-avatar-2020-22.jpg",
+                        "width": 50
+                      },
+                      {
+                        "height": 150,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f1/b8/default-avatar-2020-22.jpg",
+                        "width": 150
+                      },
+                      {
+                        "height": 200,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-i/1a/f6/f1/b8/default-avatar-2020-22.jpg",
+                        "width": 180
+                      },
+                      {
+                        "height": 205,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-f/1a/f6/f1/b8/default-avatar-2020-22.jpg",
+                        "width": 205
+                      },
+                      {
+                        "height": 450,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-s/1a/f6/f1/b8/default-avatar-2020-22.jpg",
+                        "width": 450
+                      },
+                      {
+                        "height": 550,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-p/1a/f6/f1/b8/default-avatar-2020-22.jpg",
+                        "width": 550
+                      },
+                      {
+                        "height": 1024,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-w/1a/f6/f1/b8/default-avatar-2020-22.jpg",
+                        "width": 1024
+                      },
+                      {
+                        "height": 1200,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-o/1a/f6/f1/b8/default-avatar-2020-22.jpg",
+                        "width": 1200
+                      }
+                    ],
+                    "id": 452391352
+                  }
+                },
+                "hometown": {
+                  "locationId": 34227,
+                  "fallbackString": "34227",
+                  "location": {
+                    "additionalNames": {
+                      "long": "Fort Lauderdale, Florida"
+                    }
+                  }
+                }
+              }
+            },
+            {
+              "id": 1051568421,
+              "helpfulVotes": 0,
+              "rating": 5,
+              "title": "Impeccable Service in fabulous surroundings",
+              "text": "A Truly World Class Hotel located ideally in Cairo.  I can’t recommend this hotel enough.  One of the finest I’ve visited anywhere in the World.  Staff went out of their way to assist.  I emailed a request through in English and Salma Ahmad answered swiftly enabling my wishes and everything was arranged with style and elegance.  If you are looking for the best hotel in Cairo…  Stay here.",
+              "status": "PUBLISHED",
+              "tripInfo": {
+                "stayDate": "2026-03-31",
+                "tripType": "COUPLES"
+              },
+              "location": {
+                "name": "Four Seasons Hotel Cairo at Nile Plaza",
+                "locationId": 308077,
+                "parentGeoId": 294201,
+                "absoluteUrl": "https://www.tripadvisor.com/Hotel_Review-g294201-d308077-Reviews-Four_Seasons_Hotel_Cairo_at_Nile_Plaza-Cairo_Cairo_Governorate.html"
+              },
+              "locationId": 308077,
+              "publishedDate": "2026-03-01",
+              "ownerResponseId": 1053058048,
+              "ownerResponse": {
+                "id": 1053058048,
+                "text": "Dear Lee, \n\nThank you for taking the time to share such a wonderful review. It’s truly heartening to know that your experience with us stood out as one of the finest you’ve had anywhere in the world — this is exactly the level of care and craftsmanship we aspire to deliver.\nI’m especially delighted to hear about your interaction with Salma. She embodies the genuine warmth and dedication our team takes pride in, and I know she will be thrilled to learn how much her thoughtful assistance enhanced your stay. Ensuring your requests were handled with elegance and ease is at the core of our service promise.\n\nWe are honoured by your recommendation and grateful for your kind words about our location, surroundings, and overall atmosphere. It would be our pleasure to welcome you back for many more memorable visits to Cairo.\n\nKind regards,\nYves Giacometti\nRegional Vice President and General Manager\nFour Seasons Hotel Cairo at Nile Plaza",
+                "publishedDate": "2026-03-15",
+                "userId": "899A6C25D9A89BF78DCEB776F45CC1B3",
+                "userProfile": {
+                  "route": {
+                    "url": "/Profile/646nesmag"
+                  },
+                  "displayName": "Four Seasons C",
+                  "avatar": {
+                    "__typename": "MemberProfile_MediaId",
+                    "data": {
+                      "__typename": "Media_PhotoResult",
+                      "statuses": [
+                        "PUBLISHED"
+                      ],
+                      "sizes": [
+                        {
+                          "height": 0,
+                          "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/f6/f4/20/default-avatar-2020-31.jpg?w=100&h=100&s=1",
+                          "width": 0
+                        },
+                        {
+                          "height": 50,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-t/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 50
+                        },
+                        {
+                          "height": 150,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 150
+                        },
+                        {
+                          "height": 200,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-i/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 180
+                        },
+                        {
+                          "height": 205,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-f/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 205
+                        },
+                        {
+                          "height": 450,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-s/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 450
+                        },
+                        {
+                          "height": 550,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-p/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 550
+                        },
+                        {
+                          "height": 1024,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-w/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 1024
+                        },
+                        {
+                          "height": 1200,
+                          "url": "https://media-cdn.tripadvisor.com/media/photo-o/1a/f6/f4/20/default-avatar-2020-31.jpg",
+                          "width": 1200
+                        }
+                      ],
+                      "id": 452391968
+                    }
+                  }
+                }
+              },
+              "photos": [],
+              "userId": "0B586A475E36767501E19E85A3B12AE1",
+              "userProfile": {
+                "route": {
+                  "url": "/Profile/Z6893UFleem"
+                },
+                "contributionCounts": {
+                  "sumAllUgc": 12
+                },
+                "userId": "0B586A475E36767501E19E85A3B12AE1",
+                "displayName": "Lee M",
+                "avatar": {
+                  "__typename": "MemberProfile_MediaId",
+                  "data": {
+                    "__typename": "Media_PhotoResult",
+                    "statuses": [
+                      "PUBLISHED"
+                    ],
+                    "sizes": [
+                      {
+                        "height": 0,
+                        "url": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/f6/f2/7a/default-avatar-2020-25.jpg?w=100&h=100&s=1",
+                        "width": 0
+                      },
+                      {
+                        "height": 50,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-t/1a/f6/f2/7a/default-avatar-2020-25.jpg",
+                        "width": 50
+                      },
+                      {
+                        "height": 150,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-l/1a/f6/f2/7a/default-avatar-2020-25.jpg",
+                        "width": 150
+                      },
+                      {
+                        "height": 200,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-i/1a/f6/f2/7a/default-avatar-2020-25.jpg",
+                        "width": 180
+                      },
+                      {
+                        "height": 205,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-f/1a/f6/f2/7a/default-avatar-2020-25.jpg",
+                        "width": 205
+                      },
+                      {
+                        "height": 450,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-s/1a/f6/f2/7a/default-avatar-2020-25.jpg",
+                        "width": 450
+                      },
+                      {
+                        "height": 550,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-p/1a/f6/f2/7a/default-avatar-2020-25.jpg",
+                        "width": 550
+                      },
+                      {
+                        "height": 1024,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-w/1a/f6/f2/7a/default-avatar-2020-25.jpg",
+                        "width": 1024
+                      },
+                      {
+                        "height": 1200,
+                        "url": "https://media-cdn.tripadvisor.com/media/photo-o/1a/f6/f2/7a/default-avatar-2020-25.jpg",
+                        "width": 1200
+                      }
+                    ],
+                    "id": 452391546
+                  }
+                },
+                "hometown": {
+                  "locationId": null,
+                  "fallbackString": null,
+                  "location": null
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "ownerStatus": [
+        {
+          "isOwnedByUser": false
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 741,
+          "helpfulVote": 239
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 246,
+          "helpfulVote": 3
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 278,
+          "helpfulVote": 155
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 102,
+          "helpfulVote": 30
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 1
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 62,
+          "helpfulVote": 64
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 12,
+          "helpfulVote": 1
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 69,
+          "helpfulVote": 0
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 278,
+          "helpfulVote": 166
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 19,
+          "helpfulVote": 1
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "socialStatistics": [
+        {
+          "isLiked": false,
+          "likeCount": 0
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "contributionCounts": [
+        {
+          "sumAllUgc": 5,
+          "helpfulVote": 6
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "award": [
+        {
+          "year": 2025,
+          "awardType": "COE"
+        }
+      ]
+    }
+  },
+  {
+    "data": {
+      "QuestionsAndAnswers_getQuestionsByLocations": [
+        {
+          "questions": [
+            {
+              "content": "Does the hotel allow hotel guests to have visitors?",
+              "contentLanguage": "en",
+              "id": 10214204,
+              "locationId": 308077,
+              "memberProfile": {
+                "userId": "F9280650C16477D6444DF31CC9B5B76D"
+              },
+              "postCount": 1,
+              "submittedDateTime": "2025-01-10T13:00:24.289Z"
+            },
+            {
+              "content": "Does the hotel offer any private airport transfers? If so, how can I get information about that?",
+              "contentLanguage": "en",
+              "id": 10121355,
+              "locationId": 308077,
+              "memberProfile": {
+                "userId": "37707F469BE737E5EB0EF00854448B64"
+              },
+              "postCount": 0,
+              "submittedDateTime": "2024-10-02T02:41:33.153Z"
+            },
+            {
+              "content": "Planning a trip next month.  Curious about the turn around time for laundry service - wash and fold clothes. No dry cleaning services are needed?   Can you advise.",
+              "contentLanguage": "en",
+              "id": 9751097,
+              "locationId": 308077,
+              "memberProfile": {
+                "userId": "7CB6AB5A958BB24C8BD5E196D04889C5"
+              },
+              "postCount": 0,
+              "submittedDateTime": "2023-09-02T13:12:27.435Z"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
+

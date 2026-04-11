@@ -37,17 +37,21 @@ export function parseDate(str) {
     const clean = str.replace(/reviewed|written|posted|date of stay|stayed in|:|\n/gi, ' ').trim();
     const d = new Date(clean);
     if (!isNaN(d)) return d;
-    const m = clean.match(/([A-Za-z]+)\s+(\d{4})/);
-    if (m) { const p = new Date(`${m[1]} 1, ${m[2]}`); if (!isNaN(p)) return p; }
-    const m2 = clean.match(/(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})/);
-    if (m2) { const p = new Date(`${m2[2]} ${m2[1]}, ${m2[3]}`); if (!isNaN(p)) return p; }
+
+    // Handle numeric timestamps
+    if (!isNaN(clean) && clean.length >= 10 && /^\d+$/.test(clean)) {
+        const num = Number(clean);
+        const p = new Date(num > 9999999999 ? num : num * 1000); 
+        if (!isNaN(p)) return p;
+    }
     return null;
 }
 
 export function inRange(dateStr, from, to) {
     const d = parseDate(dateStr);
-    if (!d) return 'ok';
+    if (!d) return 'in';
     if (from && d < new Date(from)) return 'before';
     if (to) { const t = new Date(to); t.setHours(23, 59, 59, 999); if (d > t) return 'after'; }
-    return 'ok';
+    return 'in';
 }
+

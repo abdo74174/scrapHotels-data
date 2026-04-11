@@ -1,4 +1,9 @@
 export async function parseHotelsPage(page, selectors) {
+    try {
+        await page.waitForSelector('[data-stid="reviews-list"]', { timeout: 15000 });
+    } catch (e) {
+        // Continue anyway if the exact selector isn't found
+    }
     return page.evaluate((S) => {
         const gt = el => el ? (el.innerText || el.textContent || '').trim() : '';
         const get = (card, sels) => { for (const s of sels) { const t = gt(card.querySelector(s)); if (t) return t; } return ''; };

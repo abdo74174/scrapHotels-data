@@ -1,8 +1,32 @@
 {
   "booking": {
     "siteName": "Booking.com",
-    "lastScrapedAt": "2026-04-10T19:21:41.405Z",
+    "lastScrapedAt": "2026-04-10T21:22:21.956Z",
     "lastReviewDate": "September 2025",
     "totalReviews": 1246
+  },
+  "agoda": {
+    "siteName": "Agoda.com",
+    "lastScrapedAt": "2026-04-10T22:09:13.411Z",
+    "lastReviewDate": "September 28, 2019",
+    "totalReviews": 174
+  },
+  "expedia": {
+    "siteName": "Expedia.com",
+    "lastScrapedAt": "2026-04-10T22:29:15.470Z",
+    "lastReviewDate": "",
+    "totalReviews": 0
+  },
+  "tripadvisor": {
+    "siteName": "Tripadvisor.com",
+    "lastScrapedAt": "2026-04-10T22:43:55.693Z",
+    "lastReviewDate": "",
+    "totalReviews": 0
+  },
+  "hotels": {
+    "siteName": "Hotels.com",
+    "lastScrapedAt": "2026-04-10T23:49:41.725Z",
+    "lastReviewDate": "",
+    "totalReviews": 0
   }
 }
